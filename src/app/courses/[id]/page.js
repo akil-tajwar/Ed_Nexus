@@ -895,14 +895,14 @@ const CourseDashboard = ({ params }) => {
     ),
   };
   return (
-    <div className="drawer lg:drawer-open pt-10">
+    <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
         <label
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
         ></label>
-        <div className="overflow-y-scroll col-span-2 rounded-lg">
+        <div className="overflow-y-scroll col-span-2 rounded-lg px-3">
           {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
                          <div item={item} key={item._id}>
 
@@ -915,7 +915,7 @@ const CourseDashboard = ({ params }) => {
         {/* Page content here */}
         {/* <Outlet></Outlet> */}
       </div>
-      <div className="drawer-side pt-10">
+      <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         <ul className="menu p-4 w-96 h-full bg-[#0083db]  text-white text-lg">
           {/* Sidebar content here */}
@@ -939,7 +939,7 @@ const CourseDashboard = ({ params }) => {
             )}
           </div>
           <div className="pb-4 pt-2">
-            <h3 className="text-4xl text-white font-semibold">
+            <h3 className="text-3xl text-white font-semibold">
               {presentCourse.courseName}
             </h3>
             <div className="flex justify-between items-center">

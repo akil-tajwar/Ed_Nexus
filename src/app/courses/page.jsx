@@ -217,7 +217,7 @@ const Courses = () => {
     },
   };
   return (
-    <div className="text-justify px-7 w-full lg:w-3/4 mx-auto mb-10 pt-32">
+    <div className="text-justify px-7 w-full lg:w-3/4 mx-auto mb-10 pt-18">
       <div className="flex justify-end">
         <div className="mr-5">
           {/* Open the modal using ID.showModal() method */}

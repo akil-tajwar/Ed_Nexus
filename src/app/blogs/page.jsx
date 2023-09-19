@@ -99,11 +99,13 @@ const Blogs = ({ params }) => {
 			<div className="text-end">
 				<button className="px-3 py-2 bg-[#0083db] rounded font-semibold text-white">Add Blogs</button>
 			</div>
+
 			{
 				blogs.map(blog => <div key={blog.blogs_id}>
 					<h1>{blog.title}</h1>
 				</div>)
 			}
+
 		</div>
 
 	);
