@@ -20,6 +20,25 @@ const blogsSchema = new Schema({
     Date: {
         type: String,
     },
+    like: {
+        type: Number,
+    },
+    dislike: {
+        type: Number,
+    },
+    comment: [
+        {
+            userName: {
+                type: String,
+            },
+            userPicture: {
+                type: String,
+            },
+            comment: {
+                type: String,
+            }
+        }
+    ]
 }, { timestamps: true })
 const Blogs = models.Blogs || model("Blogs", blogsSchema);
 
