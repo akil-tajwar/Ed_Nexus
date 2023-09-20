@@ -217,7 +217,7 @@ const Courses = () => {
     },
   };
   return (
-    <div className="text-justify w-full mx-auto my-10">
+    <div className="text-justify w-full mx-auto py-32">
       <div className="flex justify-center">
         <div className="mr-5">
           {/* Open the modal using ID.showModal() method */}
@@ -369,7 +369,7 @@ const Courses = () => {
               <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
                 <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
                   <figure className="h-[72%]">
-                    <img src={item.picture} className="object-contain"/>
+                    <img src={item.picture} className="object-contain" />
                   </figure>
                   <div className="avatar-group -space-x-7 absolute top-[50%] right-3">
                     {item.members.slice(0, 4).map((member, index) => (
