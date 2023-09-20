@@ -9,7 +9,8 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
-// import { imageUpload } from '@/apiHook/imageUpload';
+
+import { imageUpload } from '@/apiHook/imageUpload';
 
 const Register = ({ callbackUrl }) => {
     const [photo, setPhoto] = useState('')
@@ -21,37 +22,32 @@ const Register = ({ callbackUrl }) => {
         const email = data.email
         const password = data.password
         const image = data.image[0]
-
-        const formData = new FormData()
-        formData.append('image', image)
         try {
-            // imageUpload(formData)
-            //     .then(data => {
-            //         if (data.success) {
-            //             setPhoto(data.data.display_url)
-            //         }
-            //     })
-            //     .catch(error => {
-            //         setLoad(false)
-            //     })
-            console.log(photo)
-            const res = await axios.post("http://localhost:3000/api/register", { name, email, password });
-            const data = res.data;
-            console.log(data.user);
-            if (!data.user) {
-                console.log('user unll')
-                return null;
+            const formData = new FormData();
+            formData.append('image', image);
+            const imageUploadResponse = await imageUpload(formData);
+            setPhoto(imageUploadResponse.data.display_url)
+            if (imageUploadResponse.success) {
+                const res = await axios.post("http://localhost:3000/api/register", { name, email, password, picture: imageUploadResponse.data.display_url });
+                const data = res.data;
+                if (!data.user) {
+                    return null;
+                }
+                await signIn('credentials', {
+                    email,
+                    password,
+                    callbackUrl,
+                });
+                reset()
+                setLoad(false)
+                toast.success('user register successfuly', { position: "top-center" })
             }
-            await signIn('credentials', {
-                email,
-                password,
-                callbackUrl,
-            });
-            reset()
-            setLoad(false)
-            toast.success('user register successfuly', { position: "top-center" })
+            else {
+                setLoad(false);
+                toast.error('Image upload failed');
+            }
         } catch (error) {
-            console.log("Error during registration: ", error);
+            toast.error("Error during registration: ", error);
         }
 
     }

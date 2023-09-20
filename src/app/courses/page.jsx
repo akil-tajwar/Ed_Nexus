@@ -10,6 +10,7 @@ import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
 import { GiTeacher } from "react-icons/gi";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { imageUpload } from "@/apiHook/imageUpload";
 
 const Courses = () => {
   const [courseName, setCourseName] = useState("");
@@ -59,48 +60,51 @@ const Courses = () => {
 
         const userData = chatResponse.data;
         console.log(userData);
-
-        const formData = {
-          courseName,
-          picture,
-          password,
-          chatID: userData.id,
-          chatAccessKey: userData.access_key,
-          members: [
-            {
-              email: loggedInUserEmail,
-              role: "owner",
-              username: loggedInUserName,
-              image: loggedInUserImage,
+        const data = new FormData();
+        data.append("file", picture)
+        const imageUploadResponse = await imageUpload(data);
+        if (imageUploadResponse.success) {
+          const formData = {
+            courseName,
+            picture: imageUploadResponse.data.display_url,
+            password,
+            chatID: userData.id,
+            chatAccessKey: userData.access_key,
+            members: [
+              {
+                email: loggedInUserEmail,
+                role: "owner",
+                username: loggedInUserName,
+                image: loggedInUserImage,
+              },
+            ],
+            ownerName: loggedInUserName,
+            ownerEmail: loggedInUserEmail,
+          };
+          // Send formData to backend API for storage in MongoDB
+          const res = await fetch("/api/courses/create", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-          ],
-          ownerName: loggedInUserName,
-          ownerEmail: loggedInUserEmail,
-        };
-
-        // Send formData to backend API for storage in MongoDB
-        const res = await fetch("/api/courses/create", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (res.ok) {
-          // Course creation was successful
-          Swal.fire({
-            icon: "success",
-            title: "Class Created Successfully",
-            text: "Your class has been created successfully!",
+            body: JSON.stringify(formData),
           });
-        } else {
-          // Course creation failed
-          Swal.fire({
-            icon: "error",
-            title: "Class Creation Failed",
-            text: "Failed to create the class. Please try again later.",
-          });
+
+          if (res.ok) {
+            // Course creation was successful
+            Swal.fire({
+              icon: "success",
+              title: "Class Created Successfully",
+              text: "Your class has been created successfully!",
+            });
+          } else {
+            // Course creation failed
+            Swal.fire({
+              icon: "error",
+              title: "Class Creation Failed",
+              text: "Failed to create the class. Please try again later.",
+            });
+          }
         }
       } catch (error) {
         // An error occurred while making the API call
@@ -247,11 +251,11 @@ const Courses = () => {
                     <span className="label-text">Course Picture</span>
                   </label>
                   <input
-                    type="text"
+                    type="file"
                     name="picture"
-                    placeholder="Course picture URL"
+                    placeholder="Course picture"
                     className="input input-bordered"
-                    onChange={(e) => setPicture(e.target.value)}
+                    onChange={(e) => setPicture(e.target.files[0])}
                   />
                 </div>
                 <div className="form-control">

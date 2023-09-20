@@ -4,8 +4,8 @@ import bdConnect from "@/utils/dbConnect";
 import User from "@/models/userModels/userModel";
 
 export async function POST(request) {
-    const { name, email, password } = await request.json();
-    console.log(name, email, password)
+    const { name, email, password, picture } = await request.json();
+    console.log(name, email, password, picture, 'register router')
 
     try {
         await bdConnect()
@@ -16,7 +16,7 @@ export async function POST(request) {
         }
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const newUser = await User.create({ name, email, password: hashedPassword });
+        const newUser = await User.create({ name, email, password: hashedPassword, image: picture });
 
         return NextResponse.json({ user: newUser, message: "User registered." }, { status: 200 });
     } catch (error) {

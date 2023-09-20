@@ -2,8 +2,12 @@
 import React, { useEffect, useState } from 'react';
 
 const Themes = () => {
-    const storedTheme = localStorage.getItem('theme') || 'light';
-    const storedIcon = localStorage.getItem('icon') || '';
+    const isLocalStorageAvailable = typeof window !== 'undefined' && window.localStorage;
+    const storedTheme = isLocalStorageAvailable ? localStorage.getItem('theme') || 'light' : 'light';
+    const storedIcon = isLocalStorageAvailable ? localStorage.getItem('icon') || '' : '';
+
+    // const storedTheme = localStorage.getItem('theme') || 'light';
+    // const storedIcon = localStorage.getItem('icon') || '';
 
     const [theme, setTheme] = useState(storedTheme);
     const [icon, setIcon] = useState(storedIcon);
