@@ -10,34 +10,35 @@ import LogOut from "@/Components/auth/LogOut";
 import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { MdNotificationsNone } from "react-icons/md";
+import Image from "next/image";
 
 const NavMenu = () => {
-    const { data: session } = useSession();
-    const [notification, setNotification] = useState([]);
-    const pathNames = usePathname();
-    console.log('Current path:', pathNames);
+  const { data: session } = useSession();
+  const [notification, setNotification] = useState([]);
+  const pathNames = usePathname();
+  console.log('Current path:', pathNames);
 
-    const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/];
-    const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
-        pattern.test(pathNames)
-    );
-    console.log('shouldHideNavbar:', shouldHideNavbar);
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/];
+  const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
+    pattern.test(pathNames)
+  );
+  console.log('shouldHideNavbar:', shouldHideNavbar);
 
-    useEffect(() => {
-        if (session) {
-            const { user } = session;
-            const loggedInUserName = user.name;
-        }
-    }, [session]);
-    function extractTimeFromISO(isoTimestamp) {
-        const dateObj = new Date(isoTimestamp);
-        const timeOffset = 6 * 60 * 60 * 1000;
-        dateObj.setTime(dateObj.getTime() + timeOffset);
-        const hours = dateObj.getUTCHours().toString().padStart(2, "0");
-        const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
-        return `${hours}:${minutes}`;
-      }
-        // For Getting Notication Data
+  useEffect(() => {
+    if (session) {
+      const { user } = session;
+      const loggedInUserName = user.name;
+    }
+  }, [session]);
+  function extractTimeFromISO(isoTimestamp) {
+    const dateObj = new Date(isoTimestamp);
+    const timeOffset = 6 * 60 * 60 * 1000;
+    dateObj.setTime(dateObj.getTime() + timeOffset);
+    const hours = dateObj.getUTCHours().toString().padStart(2, "0");
+    const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+  // For Getting Notication Data
   useEffect(() => {
     const fetchNotification = async () => {
       try {
@@ -55,31 +56,31 @@ const NavMenu = () => {
     fetchNotification();
   }, []);
   console.log("notification", notification);
-    const menu = (
-        <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
-            <li>
-                <Link href="/">Home</Link>
-            </li>
-            <li>
-                <Link href="/courses">Courses</Link>
-            </li>
-            <li>
-                <Link href="/blogs">Blogs</Link>
-            </li>
-            {session && (
-                <li>
-                    <Link href="/admin">Dashboard</Link>
-                </li>
-            )}
-            {session && (
-                <li>
-                    <Link href="/chat">Chat</Link>
-                </li>
-            )}
-        </ul>
-    );
-    return (
-        <div>
+  const menu = (
+    <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
+      <li>
+        <Link href="/">Home</Link>
+      </li>
+      <li>
+        <Link href="/courses">Courses</Link>
+      </li>
+      <li>
+        <Link href="/blogs">Blogs</Link>
+      </li>
+      {session && (
+        <li>
+          <Link href="/admin">Dashboard</Link>
+        </li>
+      )}
+      {session && (
+        <li>
+          <Link href="/chat">Chat</Link>
+        </li>
+      )}
+    </ul>
+  );
+  return (
+    <div>
       {!shouldHideNavbar ? (
         <div className="navbar lg:w-3/4 w-11/12 mx-auto">
           <div className="navbar-start">
@@ -145,7 +146,7 @@ const NavMenu = () => {
                         >
                           <div className="avatar">
                             <div className="w-10 rounded-full">
-                              <img src={item.image} />
+                              <Image src={item.image} alt="" fill={true} />
                             </div>
                           </div>
                           <div>
@@ -199,7 +200,6 @@ const NavMenu = () => {
                       <div className="flex items-center gap-2">
                         <FiLogOut className="text-lg" />
                         <LogOut />
-                        {/* <button onClick={signOut}>Sign Out</button> */}
                       </div>
                     </div>
                   </li>
@@ -218,7 +218,7 @@ const NavMenu = () => {
         </div>
       ) : null}
     </div>
-    );
+  );
 };
 
 export default NavMenu;

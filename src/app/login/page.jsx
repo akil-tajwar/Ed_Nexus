@@ -7,7 +7,7 @@ const Login = ({ searchParams: { callbackUrl } }) => {
     console.log(callbackUrl, 'callbackUrl for login page')
     return (
         <div>
-            <SignIn callbackUrl={callbackUrl || "/dashboard"} />
+            <SignIn callbackUrl={callbackUrl || "/"} />
         </div>
     );
 };

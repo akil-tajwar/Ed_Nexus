@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
 import Lottie from "react-lottie";
 import classroomAnimate from "../../../public/classroom.json";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import { HiOutlineBookOpen, HiOutlineUserGroup } from "react-icons/hi";
 import { GiTeacher } from "react-icons/gi";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 const Courses = () => {
   const [courseName, setCourseName] = useState("");
@@ -364,18 +364,18 @@ const Courses = () => {
       ) : (
         // Show courses when there is course data
         <div>
-          <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6 my-4">
+          <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-fit my-6 gap-6">
             {courseData.map((item) => (
               <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
                 <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
-                  <figure className="h-[72%]">
-                    <img src={item.picture} className="object-contain" />
-                  </figure>
+                  <div className="h-56 w-full relative">
+                    <Image src={item.picture} className="w-full h-full object-cover rounded-t-2xl" alt="" fill={true} />
+                  </div>
                   <div className="avatar-group -space-x-7 absolute top-[50%] right-3">
                     {item.members.slice(0, 4).map((member, index) => (
                       <div className="avatar" key={index}>
                         <div className="w-12">
-                          <img src={member.image} />
+                          <Image src={member.image} alt="" fill={true} />
                         </div>
                       </div>
                     ))}

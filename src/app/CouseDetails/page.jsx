@@ -1,6 +1,7 @@
 // components/ProductList.js
 "use client"
 import Layout from '@/component/Layout';
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { FaUserTie } from 'react-icons/fa';
 
@@ -103,9 +104,9 @@ function CouseDetails() {
 
                           <div className="avatar">
                             <div className="mask mask-squircle w-12 h-12">
-                              <img
+                              <Image
                                 src={item.picture}
-                              />
+                                alt="" fill={true} />
                             </div>
                           </div>
 
@@ -146,7 +147,7 @@ function CouseDetails() {
                                 <div className='' >
                                   <div className='ml-12 text-center'>
                                     <FaUserTie className="w-80 h-72  text-center items-center border border-[#0083db]  text-[#0083db] "></FaUserTie>
-                                    <img src='' alt="" />
+                                    <Image src="" alt="" fill={true} />
                                   </div>
                                   <h1 className="text-xl mt-8
                                                 font-bold">Name:Towhidul Islam </h1>

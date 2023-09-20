@@ -7,5 +7,5 @@ export async function GET() {
   try {
     const data = await Notification.find();
     return NextResponse.json(data);
-  } catch (error) {}
+  } catch (error) { }
 }

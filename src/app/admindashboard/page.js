@@ -1,9 +1,7 @@
-"use client";
+"use client"
 import CoursesDashboard from "@/Components/courses/CoursesDashboard";
 import React, { useEffect, useState } from "react";
-
 import gellary from "../../assets/gellary1.jpg"
-import Image from "next/image";
 import Link from "next/link";
 import { setHours, setMinutes } from "date-fns";
 import { useForm } from "react-hook-form";
@@ -18,6 +16,7 @@ import CountUp from "react-countup";
 import { IoMdPaper } from "react-icons/io";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { BsJournalBookmarkFill } from "react-icons/bs";
+import Image from "next/image";
 
 
 
@@ -196,7 +195,7 @@ const CourseDashboard = ({ params }) => {
         };
         fetchUser();
 
-    }, []);
+    });
     console.log(user, "user");
 
 
@@ -253,9 +252,9 @@ const CourseDashboard = ({ params }) => {
 
                                                 <div className="avatar">
                                                     <div className="mask mask-squircle w-12 h-12">
-                                                        <img
-                                                            src={item.image}
-                                                        />
+                                                        <Image
+                                                            src={item.Image}
+                                                            alt="" fill={true} />
                                                     </div>
                                                 </div>
                                                 <div>
@@ -389,7 +388,8 @@ const CourseDashboard = ({ params }) => {
                                     alt="foodGallary"
                                     className=" rounded shadow-sm min-h-25 dark:bg-gray-500 h-auto w-[800px]"
                                     src={gellary}
-                                ></Image>
+                                    fill={true}
+                                />
                             </figure>
                             <div className="card-body">
                                 <div className="flex">
@@ -397,7 +397,77 @@ const CourseDashboard = ({ params }) => {
                                         <h2 className="card-title mt-0">
                                             <div className="avatar" >
                                                 <div className="w-12 rounded-lg">
-                                                    <img src={gellary} />
+                                                    <Image src={gellary} alt="" fill={true} />
+                                                </div>
+                                            </div>
+                                            <h1>Vincent</h1>
+                                            <br />
+                                            <h1>hello</h1>
+                                        </h2>
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+                                <p>If a dog chews shoes whose shoes does he choose?</p>
+                                <div className="card-actions justify-end">
+                                    <div className="badge badge-outline">Edit</div>
+                                    <div className="badge badge-outline">Delete</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="card w-80 bg-base-100 shadow-xl">
+                            <figure>
+                                <Image
+                                    alt="" fill={true}
+                                    className=" rounded shadow-sm min-h-25 dark:bg-gray-500 h-auto w-[800px]"
+                                    src={gellary}
+                                />
+                            </figure>
+                            <div className="card-body">
+                                <div className="flex">
+                                    <div>
+                                        <h2 className="card-title mt-0">
+                                            <div className="avatar" >
+                                                <div className="w-12 rounded-lg">
+                                                    <Image src={gellary} alt="" fill={true} />
+                                                </div>
+                                            </div>
+                                            <h1>Vincent</h1>
+                                            <br />
+                                            <h1>hello</h1>
+                                        </h2>
+                                    </div>
+                                    <div>
+
+                                    </div>
+                                </div>
+                                <p>If a dog chews shoes whose shoes does he choose?</p>
+                                <div className="card-actions justify-end">
+                                    <div className="badge badge-outline">Edit</div>
+                                    <div className="badge badge-outline">Delete</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="card w-80 bg-base-100 shadow-xl">
+                            <figure>
+                                <Image
+                                    alt="foodGallary" fill={true}
+                                    className=" rounded shadow-sm min-h-25 dark:bg-gray-500 h-auto w-[800px]"
+                                    src={gellary}
+                                />
+                            </figure>
+                            <div className="card-body">
+                                <div className="flex">
+                                    <div>
+                                        <h2 className="card-title mt-0">
+                                            <div className="avatar" >
+                                                <div className="w-12 rounded-lg">
+                                                    <Image src={gellary} alt="" fill={true} />
                                                 </div>
                                             </div>
                                             <h1>Vincent</h1>
@@ -424,7 +494,8 @@ const CourseDashboard = ({ params }) => {
                                     alt="foodGallary"
                                     className=" rounded shadow-sm min-h-25 dark:bg-gray-500 h-auto w-[800px]"
                                     src={gellary}
-                                ></Image>
+                                    fill={true}
+                                />
                             </figure>
                             <div className="card-body">
                                 <div className="flex">
@@ -432,77 +503,7 @@ const CourseDashboard = ({ params }) => {
                                         <h2 className="card-title mt-0">
                                             <div className="avatar" >
                                                 <div className="w-12 rounded-lg">
-                                                    <img src={gellary} />
-                                                </div>
-                                            </div>
-                                            <h1>Vincent</h1>
-                                            <br />
-                                            <h1>hello</h1>
-                                        </h2>
-                                    </div>
-                                    <div>
-
-                                    </div>
-                                </div>
-                                <p>If a dog chews shoes whose shoes does he choose?</p>
-                                <div className="card-actions justify-end">
-                                    <div className="badge badge-outline">Edit</div>
-                                    <div className="badge badge-outline">Delete</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="card w-80 bg-base-100 shadow-xl">
-                            <figure>
-                                <Image
-                                    alt="foodGallary"
-                                    className=" rounded shadow-sm min-h-25 dark:bg-gray-500 h-auto w-[800px]"
-                                    src={gellary}
-                                ></Image>
-                            </figure>
-                            <div className="card-body">
-                                <div className="flex">
-                                    <div>
-                                        <h2 className="card-title mt-0">
-                                            <div className="avatar" >
-                                                <div className="w-12 rounded-lg">
-                                                    <img src={gellary} />
-                                                </div>
-                                            </div>
-                                            <h1>Vincent</h1>
-                                            <br />
-                                            <h1>hello</h1>
-                                        </h2>
-                                    </div>
-                                    <div>
-
-                                    </div>
-                                </div>
-                                <p>If a dog chews shoes whose shoes does he choose?</p>
-                                <div className="card-actions justify-end">
-                                    <div className="badge badge-outline">Edit</div>
-                                    <div className="badge badge-outline">Delete</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="card w-80 bg-base-100 shadow-xl">
-                            <figure>
-                                <Image
-                                    alt="foodGallary"
-                                    className=" rounded shadow-sm min-h-25 dark:bg-gray-500 h-auto w-[800px]"
-                                    src={gellary}
-                                ></Image>
-                            </figure>
-                            <div className="card-body">
-                                <div className="flex">
-                                    <div>
-                                        <h2 className="card-title mt-0">
-                                            <div className="avatar" >
-                                                <div className="w-12 rounded-lg">
-                                                    <img src={gellary} />
+                                                    <Image src={gellary} alt="" fill={true} />
                                                 </div>
                                             </div>
                                             <h1>Vincent</h1>
@@ -581,14 +582,14 @@ const CourseDashboard = ({ params }) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">1st place in "Chess”
+                                        <div className="font-bold text-xl">1st place in Chess
                                         </div>
 
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">John Doe won 1st place in "Chess"</h1>
+                                <h1 className="text-sm opacity-80">John Doe won 1st place in Chess</h1>
 
 
                             </td>
@@ -608,14 +609,14 @@ const CourseDashboard = ({ params }) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-lg">Participated in "Carrom"
+                                        <div className="font-bold text-lg">Participated in Carrom
                                         </div>
 
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">Justin Lee participated in "Carrom"</h1>
+                                <h1 className="text-sm opacity-80">Justin Lee participated in Carrom</h1>
 
 
                             </td>
@@ -662,7 +663,7 @@ const CourseDashboard = ({ params }) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">Internation conference in "St.John School"
+                                        <div className="font-bold text-xl">Internation conference in St.John School
 
                                         </div>
 
@@ -670,7 +671,7 @@ const CourseDashboard = ({ params }) => {
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">Justin Leeattended internation conference in "St.John School"
+                                <h1 className="text-sm opacity-80">Justin Leeattended internation conference in St.John School
                                 </h1>
 
 
@@ -698,7 +699,7 @@ const CourseDashboard = ({ params }) => {
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">Jaks Pharro won 1st place in "Chess"</h1>
+                                <h1 className="text-sm opacity-80">Jaks Pharro won 1st place in Chess</h1>
 
 
                             </td>
@@ -745,7 +746,7 @@ const CourseDashboard = ({ params }) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">1st place in "Chess”
+                                        <div className="font-bold text-xl">1st place in Chess
                                         </div>
 
                                     </div>
@@ -779,7 +780,7 @@ const CourseDashboard = ({ params }) => {
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">John Doe won 1st place in "FaPlaystation"</h1>
+                                <h1 className="text-sm opacity-80">John Doe won 1st place in FaPlaystation</h1>
 
 
                             </td>
@@ -799,14 +800,14 @@ const CourseDashboard = ({ params }) => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">1st place in "Chess”
+                                        <div className="font-bold text-xl">1st place in Chess
                                         </div>
 
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">John Doe won 1st place in "Chess"</h1>
+                                <h1 className="text-sm opacity-80">John Doe won 1st place in Chess</h1>
 
 
                             </td>
@@ -1040,16 +1041,11 @@ const CourseDashboard = ({ params }) => {
         <div className="pt-32 w-3/4 mx-auto mb-10">
             <div className="grid grid-cols-3 w-3User Stats/3 gap-5">
                 <div className="border-4 border-[#0083db] p-5 rounded-lg">
-                    {/* <div className="w-80 h-80 relative text-center">
-                        <img src={img} alt="" />
-                    </div> */}
-
                     <FaUserTie className="w-80 h-72  border border-[#0083db]  text-[#0083db] "></FaUserTie>
                     <div className="pb-4 w-2/3 pt-2">
                         <h3 className="text-4xl mt-5 text-[#0083db] font-semibold">
                             Dashboard !!
                         </h3>
-
                     </div>
                     <div className="">
                         {categories.map((category, index) => (

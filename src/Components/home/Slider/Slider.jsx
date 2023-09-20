@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
@@ -13,6 +12,7 @@ import { FaHeart, FaRegHeart, FaRegStar, FaStar } from 'react-icons/fa';
 
 import "./styles.css";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
+import Image from "next/image";
 
 const Slider = () => {
 	const [users, setUser] = useState([]);
@@ -52,13 +52,8 @@ const Slider = () => {
 						<SwiperSlide>
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-8">
 								<div className="text-center s-color py-5 px-3 space-y-2 rounded-2xl">
-									<div className="w-24 h-24 mx-auto rounded-full text-center">
-										{/* <img
-											className="rounded-full border-4 border-[#0083db] text-center"
-											src={user.image}
-											alt="user photo"
-										/> */}
-										<img className="rounded-full border-4 border-[#0083db] text-center" src={user.image} alt="" />
+									<div className="w-24 h-24 relative mx-auto rounded-full text-center">
+										<Image className="rounded-full h-full w-full object-cover border-4 border-[#0083db] text-center" src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" alt="" width={96} height={96} />
 									</div>
 									<h1 className="text-[#0083db] text-2xl font-semibold">{user.name1}</h1>
 									<div className='flex-grow-1 align-items-center' >
@@ -79,8 +74,8 @@ const Slider = () => {
 									</p>
 								</div>
 								<div className="text-center s-color py-5 px-3 space-y-2 rounded-2xl">
-									<div className="w-24 h-24 mx-auto rounded-full text-center">
-										<img className="rounded-full border-4 border-[#0083db] text-center" src={user.image1} alt="" />
+									<div className="w-24 h-24 relative mx-auto rounded-full text-center">
+										<Image className="rounded-full h-full w-full object-cover border-4 border-[#0083db] text-center" src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" alt="" width={96} height={96} />
 									</div>
 									<h1 className="text-[#0083db] text-2xl font-semibold">{user.name2}</h1>
 									<div className='flex-grow-1 align-items-center' >
@@ -100,8 +95,8 @@ const Slider = () => {
 									</p>
 								</div>
 								<div className="text-center s-color py-5 px-3 space-y-2 rounded-2xl">
-									<div className="w-24 h-24 mx-auto rounded-full text-center">
-										<img className="rounded-full border-4 border-[#0083db] text-center" src={user.image2} alt="" />
+									<div className="w-24 h-24 relative mx-auto rounded-full text-center">
+										<Image className="rounded-full h-full w-full object-cover border-4 border-[#0083db] text-center" src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" alt="" width={96} height={96} />
 									</div>
 									<h1 className="text-[#0083db] text-2xl font-semibold">{user.name3}</h1>
 									<div className='flex-grow-1 align-items-center' >

@@ -22,7 +22,12 @@ import {
   FaUserFriends,
   FaUserGraduate,
 } from "react-icons/fa";
-import { MdClass, MdLibraryAdd, MdLibraryBooks, MdPayment } from "react-icons/md";
+import {
+  MdClass,
+  MdLibraryAdd,
+  MdLibraryBooks,
+  MdPayment,
+} from "react-icons/md";
 
 const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -305,7 +310,7 @@ const CourseDashboard = ({ params }) => {
     };
 
     fetchAssignments();
-  }, []);
+  });
   // For Getting Member Data
   useEffect(() => {
     const fetchMember = async () => {
@@ -328,7 +333,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchMember();
-  }, []);
+  });
   console.log(member);
 
   // For Getting Notice Data
@@ -348,7 +353,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchNotice();
-  }, []);
+  });
   // For Getting Resources Data
   useEffect(() => {
     const fetchResource = async () => {
@@ -368,19 +373,17 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchResource();
-  }, []);
+  });
 
   if (isLoading) {
     return <span className="loading loading-spinner text-warning"></span>;
   }
 
   const categoryContent = {
-    Chat: (
-      presentCourse ? (
-        <CourseChat courseData={presentCourse} />
-      ) : (
-        <div>Course data is not available</div>
-      )
+    Chat: presentCourse ? (
+      <CourseChat courseData={presentCourse} />
+    ) : (
+      <div>Course data is not available</div>
     ),
     Notice: (
       <div>
@@ -491,7 +494,11 @@ const CourseDashboard = ({ params }) => {
               <div className="flex items-center gap-3">
                 <div className="avatar">
                   <div className="w-16 rounded-full">
-                    <img src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg" />
+                    <Image
+                      src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+                      alt=""
+                      fill={true}
+                    />
                   </div>
                 </div>
                 <div>
@@ -511,7 +518,11 @@ const CourseDashboard = ({ params }) => {
               <div className="flex gap-3 mt-5 items-center">
                 <div className="avatar">
                   <div className="w-12 rounded-full">
-                    <img src="https://i.ibb.co/Pgrgt4S/clf47wwin001nmh08aqvomr5k-1.jpg" />
+                    <Image
+                      src="https://i.ibb.co/Pgrgt4S/clf47wwin001nmh08aqvomr5k-1.jpg"
+                      alt=""
+                      fill={true}
+                    />
                   </div>
                 </div>
                 <input
@@ -547,7 +558,7 @@ const CourseDashboard = ({ params }) => {
                   <td>
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
-                        <img src={item.image} alt="Avatar" />
+                        <Image src={item.image} alt="Avatar" fill={true} />
                       </div>
                     </div>
                   </td>
@@ -947,7 +958,9 @@ const CourseDashboard = ({ params }) => {
               <h5 className="font-semibold text-2xl">
                 {presentCourse.ownerName}
               </h5>
-              <Link href="/video" ><BiLogoZoom size="2.5em" color="white" /></Link>
+              <Link href="/">
+                <BiLogoZoom size="2.5em" color="white" />
+              </Link>
             </div>
           </div>
           <div className="text-start">
@@ -966,88 +979,27 @@ const CourseDashboard = ({ params }) => {
                 </Link>
               ))}
             </li>
-            <li><p className="text-red-600 cursor-pointer font-semibold text-xl">
-              Delete this class
-            </p></li>
+            <li>
+              <p className="text-red-600 cursor-pointer font-semibold text-xl">
+                Delete this class
+              </p>
+            </li>
           </div>
           {/* {navOptions} */}
           <div className="divider"></div>
           <li>
-            <Link href="/"><FaHome></FaHome> Home Page</Link>
+            <Link href="/">
+              <FaHome></FaHome> Home Page
+            </Link>
           </li>
           <li>
-            <Link href="/courses"><FaSignOutAlt></FaSignOutAlt> Courses</Link>
+            <Link href="/courses">
+              <FaSignOutAlt></FaSignOutAlt> Courses
+            </Link>
           </li>
-          {/* )} */}
         </ul>
       </div>
     </div>
-
-    // <div className="pt-32 w-3/4 mx-auto mb-10">
-    //   <div className="grid grid-cols-3 gap-5">
-    //     <div className="border-4 border-[#0083db] p-5 rounded-lg">
-    //       <div className="w-80 h-80 relative text-center">
-    //         {presentCourse.picture ? (
-    //           <Image
-    //             className="rounded-lg w-full h-full object-fill border border-[#0083db]"
-    //             src={presentCourse.picture}
-    //             width={400}
-    //             height={400}
-    //             alt="user photo"
-    //           />
-    //         ) : (
-    //           <Image
-    //             className="rounded-lg w-full h-full object-fill border border-[#0083db]"
-    //             src="https://i.ibb.co/HKpzcHd/joanna-kosinska-b-F2vsuby-Hc-Q-unsplash.jpg"
-    //             width={400}
-    //             height={400}
-    //             alt="user photo"
-    //           />
-    //         )}
-    //       </div>
-    //       <div className="pb-4 pt-2">
-    //         <h3 className="text-4xl text-[#0083db] font-semibold">
-    //           {presentCourse.courseName}
-    //         </h3>
-    //         <div className="flex justify-between items-center">
-    //           <h5 className="font-semibold text-2xl">
-    //             {presentCourse.ownerName}
-    //           </h5>
-    //           <Link href="/video"><BiLogoZoom size="2.5em" color="#0083db"/></Link>
-    //         </div>
-    //       </div>
-    //       <div className="">
-    //         {categories.map((category, index) => (
-    //           <Link
-    //             href="#"
-    //             key={index}
-    //             className={`font-semibold text-xl mb-2 flex flex-col ${tabIndex === index
-    //               ? "tab-active text-[#0083db] pl-2 border-l-2 border-[#0083db]"
-    //               : ""
-    //               }`}
-    //             onClick={() => handleTabClick(index)}
-    //           >
-    //             {category.charAt(0).toUpperCase() + category.slice(1)}
-    //           </Link>
-    //         ))}
-    //         <p className="text-red-600 cursor-pointer font-semibold text-xl">
-    //           Delete this class
-    //         </p>
-    //       </div>
-    //     </div>
-    //     <div className="border-4 border-[#0083db] h-[670px] overflow-y-scroll p-5 col-span-2 rounded-lg">
-    //       {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
-    //                     <div item={item} key={item._id}>
-
-    //                     </div>
-    //                 ))} */}
-    //       <div className="">
-    //         <div>{categoryContent[categories[tabIndex]]}</div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <CoursesDashboard />
-    // </div>
   );
 };
 

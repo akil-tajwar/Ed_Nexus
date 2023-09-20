@@ -8,6 +8,7 @@ const ImageBanner = () => {
             <Image className='rounded-br-[60px] h-auto'
                 src={bannerImage}
                 alt="Picture of the author"
+                fill={true}
             />
         </div>
     )

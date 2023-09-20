@@ -47,7 +47,7 @@ const AllChat = () => {
           console.log("User Data:", userData);
         });
     }
-  }, [session]);
+  }, [session, username, secret, email, setUsername, setSecret, setEmail]);
 
   useEffect(() => {
     if (typeof document !== undefined) {
@@ -59,7 +59,7 @@ const AllChat = () => {
     if (username === "" || secret === "" || email === "") {
       router.push("/chat");
     }
-  }, [username, secret, email]);
+  });
 
   if (!showChat) return <div />;
 

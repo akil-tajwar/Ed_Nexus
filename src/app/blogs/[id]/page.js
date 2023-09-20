@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
@@ -15,7 +16,7 @@ const BlogDetails = ({ params }) => {
                 setSingleBlog(blog)
             })
             .catch(error => console.log(error))
-    }, []);
+    });
     console.log(singleBlog);
     return (
         <div className='pt-32 mb-20 lg:w-3/4 w-11/12 mx-auto'>
@@ -26,7 +27,7 @@ const BlogDetails = ({ params }) => {
             <div className='flex justify-between items-center pt-8 pb-5'>
                 <div className='flex gap-4'>
                     <div className='relative h-14 w-14'>
-                        <img className='w-full h-full rounded-full object-cover border-2 border-[#0083db]' src={singleBlog.photo} alt="" />
+                        <Image className='w-full h-full rounded-full object-cover border-2 border-[#0083db]' src={singleBlog.image} alt="" fill={true} />
                     </div>
                     <div>
                         <h5 className='text-xl font-semibold'>{singleBlog.author}</h5>
@@ -77,7 +78,7 @@ const BlogDetails = ({ params }) => {
             </div>
             <div>
                 <div className="relative w-full h-96 pb-10">
-                    <img className="h-full w-full object-cover rounded-lg" src={singleBlog.image} alt="" />
+                    <Image className="h-full w-full object-cover rounded-lg" src={singleBlog.image} alt="" fill={true} />
                 </div>
                 <p>{singleBlog.content}</p>
             </div>

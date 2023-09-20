@@ -9,7 +9,7 @@ export async function POST(request) {
   await bdConnect();
   try {
     const contact = await Contact.create({
-        name, email, description, createdAt, updatedAt
+      name, email, description, createdAt, updatedAt
     });
     return NextResponse.json(contact);
   } catch (error) {
@@ -24,5 +24,5 @@ export async function GET() {
   try {
     const data = await Contact.find();
     return NextResponse.json(data);
-  } catch (error) {}
+  } catch (error) { }
 }

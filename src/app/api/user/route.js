@@ -37,5 +37,5 @@ export async function GET() {
   try {
     const data = await User.find();
     return NextResponse.json(data);
-  } catch (error) {}
+  } catch (error) { }
 }

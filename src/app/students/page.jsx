@@ -31,14 +31,14 @@ const students = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">1st place in "Chess”
+                                        <div className="font-bold text-xl">1st place in Chess
                                         </div>
 
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">John Doe won 1st place in "Chess"</h1>
+                                <h1 className="text-sm opacity-80">John Doe won 1st place in Chess</h1>
 
 
                             </td>
@@ -58,14 +58,14 @@ const students = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-lg">Participated in "Carrom"
+                                        <div className="font-bold text-lg">Participated in Carrom
                                         </div>
 
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">Justin Lee participated in "Carrom"</h1>
+                                <h1 className="text-sm opacity-80">Justin Lee participated in Carrom</h1>
 
 
                             </td>
@@ -112,7 +112,7 @@ const students = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">Internation conference in "St.John School"
+                                        <div className="font-bold text-xl">Internation conference in St.John School
 
                                         </div>
 
@@ -120,7 +120,7 @@ const students = () => {
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">Justin Leeattended internation conference in "St.John School"
+                                <h1 className="text-sm opacity-80">Justin Leeattended internation conference in St.John School
                                 </h1>
 
 
@@ -148,7 +148,7 @@ const students = () => {
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">Jaks Pharro won 1st place in "Chess"</h1>
+                                <h1 className="text-sm opacity-80">Jaks Pharro won 1st place in Chess</h1>
 
 
                             </td>
@@ -195,7 +195,7 @@ const students = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">1st place in "Chess”
+                                        <div className="font-bold text-xl">1st place in Chess
                                         </div>
 
                                     </div>
@@ -229,7 +229,7 @@ const students = () => {
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">John Doe won 1st place in "FaPlaystation"</h1>
+                                <h1 className="text-sm opacity-80">John Doe won 1st place in FaPlaystation</h1>
 
 
                             </td>
@@ -249,14 +249,14 @@ const students = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <div className="font-bold text-xl">1st place in "Chess”
+                                        <div className="font-bold text-xl">1st place in Chess
                                         </div>
 
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <h1 className="text-sm opacity-80">John Doe won 1st place in "Chess"</h1>
+                                <h1 className="text-sm opacity-80">John Doe won 1st place in Chess</h1>
 
 
                             </td>

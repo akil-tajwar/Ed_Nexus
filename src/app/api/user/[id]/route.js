@@ -36,24 +36,24 @@ export async function DELETE(request, content) {
 
     // Find courses owned by the user
     const courses = await Courses.find();
-    
+
     // Remove user if he join other course
     for (const course of courses) {
       // Use the filter method to remove the user with the specified email
       course.members = course.members.filter(
         (member) => member.email !== userEmail
-        );
+      );
     }
-    
+
     //  Update courses after remove the user in the database with the modified members arrays
     for (const updatedCourse of courses) {
       await Courses.updateOne(
         { _id: updatedCourse._id },
         { members: updatedCourse.members }
-        );
-      }
-      
-      const coursesOwnedByUser = await Courses.find({ ownerName: user.name });
+      );
+    }
+
+    const coursesOwnedByUser = await Courses.find({ ownerName: user.name });
 
     for (const course of coursesOwnedByUser) {
       if (course.members.length === 1) {
