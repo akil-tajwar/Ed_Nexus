@@ -28,7 +28,7 @@ import {
   MdLibraryBooks,
   MdPayment,
 } from "react-icons/md";
-
+import { sendNotification } from "@/app/Notification/notification";
 const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
@@ -107,6 +107,16 @@ const CourseDashboard = ({ params }) => {
         const responseData = await result.json();
         setNotice((prevNotice) => [...prevNotice, responseData]);
         console.log("Notice added:", responseData);
+        // Send Notification
+        const courseMembers = presentCourse.members;
+        courseMembers.map((member) => {
+          sendNotification(
+            member.email,
+            presentCourse.ownerImage,
+            `${presentCourse.ownerName} posted a new Notice: ${title}`,
+            currentDateBD.toISOString()
+          );
+        });
         toast.success("Notice Added!", {
           position: "top-right",
           autoClose: 5000,
@@ -181,6 +191,16 @@ const CourseDashboard = ({ params }) => {
         const responseData = await result.json();
         setOldssignment((prevNotice) => [...prevNotice, responseData]);
         console.log("Assignment added:", responseData);
+        // Send Notification
+        const courseMembers = presentCourse.members;
+        courseMembers.map((member) => {
+          sendNotification(
+            member.email,
+            presentCourse.ownerImage,
+            `${presentCourse.ownerName} posted a new assignment: ${title}`,
+            currentDateBD.toISOString()
+          );
+        });
         toast.success("Assignment Added!", {
           position: "top-right",
           autoClose: 5000,
@@ -250,6 +270,16 @@ const CourseDashboard = ({ params }) => {
         const responseData = await result.json();
         setResources((prevResources) => [...prevResources, responseData]);
         console.log("Resources added:", responseData);
+        // Send Notificaiton
+        const courseMembers = presentCourse.members;
+        courseMembers.map((member) => {
+          sendNotification(
+            member.email,
+            presentCourse.ownerImage,
+            `${presentCourse.ownerName} posted a new Resource: ${title}`,
+            currentDateBD.toISOString()
+          );
+        });
         toast.success("Resources Added!", {
           position: "top-right",
           autoClose: 5000,
@@ -310,7 +340,7 @@ const CourseDashboard = ({ params }) => {
     };
 
     fetchAssignments();
-  });
+  }, [courseId]);
   // For Getting Member Data
   useEffect(() => {
     const fetchMember = async () => {
@@ -333,9 +363,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchMember();
-  });
-  console.log(member);
-
+  }, [courseId]);
   // For Getting Notice Data
   useEffect(() => {
     const fetchNotice = async () => {
@@ -353,7 +381,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchNotice();
-  });
+  }, [courseId]);
   // For Getting Resources Data
   useEffect(() => {
     const fetchResource = async () => {
@@ -373,7 +401,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchResource();
-  });
+  }, [courseId]);
 
   if (isLoading) {
     return <span className="loading loading-spinner text-warning"></span>;
@@ -914,7 +942,7 @@ const CourseDashboard = ({ params }) => {
           htmlFor="my-drawer-2"
           className="btn btn-primary drawer-button lg:hidden"
         ></label>
-        <div className="overflow-y-scroll col-span-2 rounded-lg px-3">
+        <div className="overflow-y-scroll col-span-2 rounded-lg mt-2">
           {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
                          <div item={item} key={item._id}>
 
@@ -969,10 +997,11 @@ const CourseDashboard = ({ params }) => {
                 <Link
                   href="#"
                   key={index}
-                  className={`font-semibold text-xl mb-2 flex flex-col items-start ${tabIndex === index
-                    ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
-                    : ""
-                    }`}
+                  className={`font-semibold text-xl mb-2 flex flex-col items-start ${
+                    tabIndex === index
+                      ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
+                      : ""
+                  }`}
                   onClick={() => handleTabClick(index)}
                 >
                   {category.charAt(0).toUpperCase() + category.slice(1)}

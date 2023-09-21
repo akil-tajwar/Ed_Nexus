@@ -3,12 +3,12 @@
     /* width: 72.5% !important;  */
 }
 
-.ce-social-message-form-container {
-    width: 72.5% !important;
+#ce-social-msg-form-container{
+    width: 75.5% !important;
 }
 
 .ce-chat-feed {
-    height: 91vh !important;
+    height: 81.85vh !important;
 }
 
 #ce-scroll-down-bar {
@@ -18,4 +18,12 @@
 .ce-message-timestamp ce-their-message-timestamp {
     color: rgb(10 10 10 / 58%) !important;
     opacity: initial;
+}
+
+#ce-ice-breaker-gif{
+    display: none;
+}
+
+.ce-feed-container-top{
+    display: none;
 }

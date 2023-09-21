@@ -168,7 +168,7 @@ const Blogs = ({ params }) => {
 			</div>
 			<div className="grid grid-cols-3 w-fit gap-5">
 				{blogs.map((blog) => (
-					<div className="s-color w-fit p-5 rounded-lg" key={blog.blogs_id}>
+					<div key={blog._id} className="s-color w-fit p-5 rounded-lg">
 						<div className="relative w-full h-56">
 							{
 								blog.image &&

@@ -52,7 +52,11 @@ const coursesSchema = new Schema({
         type: String,
         required: true,
     },
+    ownerImage: {
+        type: String,
+        required: true,
+      },
 }, { timestamps: true })
 
-const Courses = models.Courses || model('Courses', coursesSchema);
+const Courses = models.Courses || model("Courses", coursesSchema);
 export default Courses;
