@@ -8,13 +8,17 @@ import { FiLogOut, FiSettings } from "react-icons/fi";
 import Themes from "../../Themes/Themes";
 import LogOut from "@/Components/auth/LogOut";
 import { signOut, useSession } from "next-auth/react";
+import { useState } from "react";
+import { MdNotificationsNone } from "react-icons/md";
+import Image from "next/image";
 
 const NavMenu = () => {
   const { data: session } = useSession();
+  const [notification, setNotification] = useState([]);
   const pathNames = usePathname();
   console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/,/^\/chat$/,/^\/admindashboard$/,  /^\/courses\/\w+$/];
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );
@@ -26,6 +30,32 @@ const NavMenu = () => {
       const loggedInUserName = user.name;
     }
   }, [session]);
+  function extractTimeFromISO(isoTimestamp) {
+    const dateObj = new Date(isoTimestamp);
+    const timeOffset = 6 * 60 * 60 * 1000;
+    dateObj.setTime(dateObj.getTime() + timeOffset);
+    const hours = dateObj.getUTCHours().toString().padStart(2, "0");
+    const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  }
+  // For Getting Notication Data
+  useEffect(() => {
+    const fetchNotification = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/notification");
+        if (response.ok) {
+          const data = await response.json();
+          setNotification(data);
+        } else {
+          console.error("Failed to fetch Notification.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    };
+    fetchNotification();
+  }, []);
+  console.log("notification", notification);
   const menu = (
     <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
       <li>
@@ -37,10 +67,9 @@ const NavMenu = () => {
       <li>
         <Link href="/blogs">Blogs</Link>
       </li>
-      {/* {session && <li><Link href="/dashboard">Dashboard</Link></li>} */}
       {session && (
         <li>
-          <Link href="/admindashboard">Dashboard</Link>
+          <Link href="/admin">Dashboard</Link>
         </li>
       )}
       {session && (
@@ -52,7 +81,7 @@ const NavMenu = () => {
   );
   return (
     <div>
-      { !shouldHideNavbar ? (
+      {!shouldHideNavbar ? (
         <div className="navbar lg:w-3/4 w-11/12 mx-auto">
           <div className="navbar-start">
             <div className="dropdown">
@@ -84,8 +113,53 @@ const NavMenu = () => {
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">{menu}</div>
-          <div className="navbar-end">
+          <div className="navbar-end gap-1">
             <Themes />
+            <div className="dropdown dropdown-bottom dropdown-end">
+              <div>
+                <button
+                  tabIndex={0}
+                  className="btn btn-circle  bg-[#0083db] m-1 indicator p-3"
+                >
+                  <MdNotificationsNone size="1.8em" color="white" />
+                  <span className="indicator-item badge badge-secondary text-white">
+                    {notification.length}
+                  </span>
+                </button>
+              </div>
+              <div
+                tabIndex={0}
+                className="dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content"
+              >
+                <div className="card-body">
+                  <div className="flex items-center justify-between">
+                    <h1 className="text-black">Notification</h1>
+                    <h1 className="text-accent">Clear All</h1>
+                  </div>
+                  <div className="flex flex-row items-center border-2 whitespace-nowrap"></div>
+                  <div className="overflow-x-auto h-52">
+                    {notification.map((item) => (
+                      <>
+                        <div
+                          key={item._id}
+                          className="flex items-center gap-3 px-2 py-4"
+                        >
+                          <div className="avatar">
+                            <div className="w-10 rounded-full">
+                              <Image src={item.image} alt="" fill={true} />
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-black">{item.description}</p>
+                            <p>{extractTimeFromISO(item.createdAt)}</p>
+                          </div>
+                        </div>
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
             {session ? (
               <div className="dropdown dropdown-end">
                 <label
@@ -125,8 +199,7 @@ const NavMenu = () => {
                     <div>
                       <div className="flex items-center gap-2">
                         <FiLogOut className="text-lg" />
-                        {/* <LogOut /> */}
-                        <button onClick={signOut}>Sign Out</button>
+                        <LogOut />
                       </div>
                     </div>
                   </li>

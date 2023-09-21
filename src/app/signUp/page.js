@@ -4,7 +4,7 @@ import React from 'react'
 const signUp = ({ searchParams: { callbackUrl } }) => {
     return (
         <div>
-            <Register callbackUrl={callbackUrl || "/dashboard"} />
+            <Register callbackUrl={callbackUrl || "/"} />
         </div>
     )
 }

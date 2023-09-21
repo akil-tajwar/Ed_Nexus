@@ -1,15 +1,14 @@
-
 import Resources from "@/models/resource/resourceModel";
 import bdConnect from "@/utils/dbConnect";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  const { course_id, title, description,attachments,createdAt,updatedAt } = await request.json();
+  const { course_id, title, description, attachments, createdAt, updatedAt } = await request.json();
 
   await bdConnect();
   try {
     const resources = await Resources.create({
-      course_id, title, description,attachments,createdAt,updatedAt
+      course_id, title, description, attachments, createdAt, updatedAt
     });
     return NextResponse.json(resources);
   } catch (error) {

@@ -12,7 +12,7 @@ const Navbar = async () => {
 	const session = await getServerSession(authOptions)
 	console.log(session, 'user session from navbar')
 	return (
-		<div className="w-full p-color z-50">
+		<div className="w-full fixed p-color z-50">
 			<NavMenu session={session} />
 		</div>
 	);

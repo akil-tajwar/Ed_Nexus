@@ -5,55 +5,98 @@ import { IoMdPaper } from "react-icons/io";
 import { BsJournalBookmarkFill, BsLinkedin } from "react-icons/bs";
 import { FaAward, FaInstagramSquare, FaTwitterSquare } from "react-icons/fa";
 import { BiLogoFacebookSquare } from "react-icons/bi";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+
 import { AiOutlineRight } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 import CountUp from "react-countup";
+import Layout from "@/component/Layout";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const dashboardPage = () => {
   const data = [
     {
-      name: "Male",
-      pv: 120,
-      amt: 240,
+      name: 'week 1',
+      female: 4000,
+      male: 2400,
+      amt: 2400,
     },
     {
-      name: "Female",
-      pv: 102,
-      amt: 240,
+      name: 'week 2',
+      female: 3000,
+      male: 1398,
+      amt: 2210,
+    },
+    {
+      name: 'week 3',
+      female: 2000,
+      male: 9800,
+      amt: 2290,
+    },
+    {
+      name: 'week 4',
+      female: 2780,
+      male: 3908,
+      amt: 2000,
+    },
+    {
+      name: 'week 5',
+      female: 1890,
+      male: 4800,
+      amt: 2181,
+    },
+    {
+      name: 'week 6',
+      female: 2390,
+      male: 3800,
+      amt: 2500,
+    },
+    {
+      name: 'week 7',
+      female: 3490,
+      male: 4300,
+      amt: 2100,
     },
   ];
+
+  const piechar = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+  ];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    return (
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
+
+
+
+
   return (
-    <div className="lg:w-3/4 w-11/12 mx-auto pt-32">
+    <Layout className="lg:w-3/4 w-11/12 mt-4 mx-auto pt-16">
       {/* Create your Component */}
       <p className="text-4xl font-semibold">Admin Dashboard</p>
 
-      <div className="flex items-center gap-2 mt-4">
-        <h1 className="text-2xl">Home</h1>
-        <AiOutlineRight size="1.5em" color="#0083db" className="font-bold" />
-        <h1 className="text-2xl font-semibold text-[#0083db]">Admin</h1>
-      </div>
+
 
       {/* Mini Card Component Here*/}
-      <div className="grid grid-cols-4 gap-3 mt-12 mb-7">
-        <div className="card w-auto bg-base-100 shadow-xl">
+      <div className="grid grid-cols-4 gap-3 mt-6 mb-4">
+        <div className="card w-auto  text-gray-500 shadow-xl">
           <div className="card-body flex-row items-center justify-evenly">
             <div className="avatar placeholder">
               <div className="bg-[#D1F3E0] text-neutral-content rounded-full w-24">
                 <HiOutlineUserGroup size="3.5em" color="#3CB878" />
               </div>
             </div>
-            <div className="flex flex-col space-y-3 justify-center">
+            <div className="flex flex-col    space-y-3 justify-center">
               <p className="text-2xl font-bold text-gray-500">User</p>
               <div className="flex items-center">
                 <CountUp
@@ -66,7 +109,7 @@ const dashboardPage = () => {
             </div>
           </div>
         </div>
-        <div className="card w-auto bg-base-100 shadow-xl">
+        <div className="card w-auto text-gray-500 shadow-xl">
           <div className="card-body flex-row items-center justify-evenly">
             <div className="avatar placeholder">
               <div className="bg-[#E1F1FF] text-neutral-content rounded-full w-24">
@@ -86,7 +129,7 @@ const dashboardPage = () => {
             </div>
           </div>
         </div>
-        <div className="card w-auto bg-base-100 shadow-xl">
+        <div className="card w-auto text-gray-500 shadow-xl">
           <div className="card-body flex-row items-center justify-evenly">
             <div className="avatar placeholder">
               <div className="bg-[#FFF2D8] text-neutral-content rounded-full w-24">
@@ -106,7 +149,7 @@ const dashboardPage = () => {
             </div>
           </div>
         </div>
-        <div className="card w-auto bg-base-100 shadow-xl">
+        <div className="card w-auto text-gray-500 shadow-xl">
           <div className="card-body flex-row items-center justify-evenly">
             <div className="avatar placeholder">
               <div className="bg-[#FFEAEA] text-neutral-content rounded-full w-24">
@@ -114,7 +157,7 @@ const dashboardPage = () => {
               </div>
             </div>
             <div className="flex flex-col space-y-3 justify-center">
-              <p className="text-2xl font-bold text-gray-500">Courses</p>
+              <p className="text-2xl font-bold text-white">Courses</p>
               <div className="flex items-center">
                 <CountUp
                   delay={2}
@@ -127,234 +170,42 @@ const dashboardPage = () => {
           </div>
         </div>
       </div>
+      {/* ??chart */}
 
-      {/* Event-calender and website traffic Component Here */}
-      {/* <div className="grid grid-cols-2 gap-3 mb-7">
-        <div className="card w-auto bg-base-100 shadow-2xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-        <div className="card w-auto bg-base-100 shadow-2xl">
-          <div className="card-body">
-            <h2 className="card-title">Card title!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-      </div> */}
 
-      {/* total male and female + exrta one Component Here */}
-     
-
-      {/* All user Detail/table Component Here */}
-      <div className="grid grid-cols-1 gap-3 mb-7">
-        <h3 className="text-3xl font-semibold mb-4">User Stats</h3>
-        <div className="bg-base-100 shadow-2xl">
-          <div className="overflow-x-auto">
-            <table className="table">
-              {/* head */}
-              <thead>
-                <tr className="text-center">
-                  <th>Name</th>
-                  <th>Job</th>
-                  <th>Favorite Color</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* row 1 */}
-                <tr className="text-center">
-                  <td>
-                    <div className="flex justify-center items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Hart Hagerty</div>
-                        <div className="text-sm opacity-50">United States</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Zemlak, Daniel and Leannon
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Desktop Support Technician
-                    </span>
-                  </td>
-                  <td>Purple</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-                {/* row 2 */}
-                <tr className="text-center">
-                  <td>
-                    <div className="flex justify-center items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Brice Swyre</div>
-                        <div className="text-sm opacity-50">China</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Carroll Group
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Tax Accountant
-                    </span>
-                  </td>
-                  <td>Red</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-                {/* row 3 */}
-                <tr className="text-center">
-                  <td>
-                    <div className="flex justify-center items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Marjy Ferencz</div>
-                        <div className="text-sm opacity-50">Russia</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Rowe-Schoen
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Office Assistant I
-                    </span>
-                  </td>
-                  <td>Crimson</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-                {/* row 4 */}
-                <tr className="text-center">
-                  <td>
-                    <div className="flex justify-center items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Yancy Tearszz</div>
-                        <div className="text-sm opacity-50">Brazil</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Wyman-Ledner
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Community Outreach Specialist
-                    </span>
-                  </td>
-                  <td>Indigo</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-                <tr className="text-center">
-                  <td>
-                    <div className="flex justify-center items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Brice Swyre</div>
-                        <div className="text-sm opacity-50">China</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Carroll Group
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Tax Accountant
-                    </span>
-                  </td>
-                  <td>Red</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-                {/* row 3 */}
-                <tr className="text-center">
-                  <td>
-                    <div className="flex justify-center items-center space-x-3">
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
-                            alt="Avatar Tailwind CSS Component"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <div className="font-bold">Marjy Ferencz</div>
-                        <div className="text-sm opacity-50">Russia</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    Rowe-Schoen
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      Office Assistant I
-                    </span>
-                  </td>
-                  <td>Crimson</td>
-                  <th>
-                    <button className="btn btn-ghost btn-xs">details</button>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div className=" mb-20 mt-8 h-12 pl-9 ">
+        <h1 className="text-3xl font-semibold mb-4">Number Of Students</h1>
+        <ResponsiveContainer c width="80%" height="800%">
+          <BarChart className="h-11"
+            width={500}
+            height={300}
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5,
+            }}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="male" fill="#8884d8" />
+            <Bar dataKey="female" fill="#82ca9d" />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
 
+
+
+
+
+
+
       {/* Social Component Here */}
-      <div className="grid grid-cols-4 gap-3 mb-10">
+      <div style={{ marginTop: "440px" }} className="grid grid-cols-4 gap-3  mb-10">
         <div className="card w-auto bg-[#1877F2] shadow-2xl">
           <div className="card-body flex-row items-center justify-between">
             <div className="text-white">
@@ -444,7 +295,7 @@ const dashboardPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   );
 };
 

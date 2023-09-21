@@ -1,19 +1,21 @@
-.ce-chat-title{
+.ce-chat-title {
     display: none !important;
     /* width: 72.5% !important;  */
 }
-.ce-social-message-form-container{
-    width: 72.5% !important; 
+
+.ce-social-message-form-container {
+    width: 72.5% !important;
 }
-.ce-chat-feed{
+
+.ce-chat-feed {
     height: 91vh !important;
 }
 
-#ce-scroll-down-bar{
+#ce-scroll-down-bar {
     left: 57% !important;
 }
-.ce-message-timestamp ce-their-message-timestamp{
+
+.ce-message-timestamp ce-their-message-timestamp {
     color: rgb(10 10 10 / 58%) !important;
     opacity: initial;
 }
-

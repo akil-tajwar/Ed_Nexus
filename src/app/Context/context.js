@@ -9,7 +9,7 @@ export const ChatContextProvider = ({ children }) => {
   const [username, setUsername] = useState("");
   const [secret, setSecret] = useState("");
   const [email, setEmail] = useState("");
-  
+
 
   const value = {
     username,
@@ -20,11 +20,11 @@ export const ChatContextProvider = ({ children }) => {
     setEmail
   };
 
-    return (
-        <ChatContext.Provider value={{value}}>
-            {children}
-        </ChatContext.Provider>
-    )
+  return (
+    <ChatContext.Provider value={{ value }}>
+      {children}
+    </ChatContext.Provider>
+  )
 };
 
 export const useChatContext = () => useContext(ChatContext);

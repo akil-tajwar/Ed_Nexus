@@ -2,6 +2,7 @@ import React from "react";
 import DeleteUser from "./DeleteUser";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
+import Layout from "@/component/Layout";
 
 
 const Settings = async ({ params }) => {

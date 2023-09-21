@@ -18,7 +18,7 @@ const Contact = () => {
   const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
 
   const onSubmitContact = async (data) => {
-    const { name,email,description } = data;
+    const { name, email, description } = data;
     const newContact = {
       name,
       email,
@@ -87,7 +87,7 @@ const Contact = () => {
               name="name"
               type="text"
               placeholder="Name"
-            className="input input-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
+              className="input input-bordered w-full lg:w-11/12 font-semibold border-2 border-[#EDEFFA]"
             />
             <input
               {...register("email")}
@@ -104,15 +104,15 @@ const Contact = () => {
             ></textarea>
           </div>
           <button className="btn btn-outline mt-3 lg:w-11/12" type="submit">
-           <div className="flex items-center gap-2">
-           <span> Send Message</span>
-            <BsSend size="1.4em"/>
-           </div>
+            <div className="flex items-center gap-2">
+              <span> Send Message</span>
+              <BsSend size="1.4em" />
+            </div>
           </button>
         </form>
       </div>
       <div className="w-full">
-      {<Lottie animationData={contactUs} loop={true}></Lottie>}
+        {<Lottie animationData={contactUs} loop={true}></Lottie>}
       </div>
     </div>
   );

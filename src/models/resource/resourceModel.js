@@ -3,8 +3,8 @@ const { Schema, models, model } = require("mongoose");
 const resourceSchema = new Schema(
   {
     course_id: {
-        type: String,
-      },
+      type: String,
+    },
     title: {
       type: String,
     },
