@@ -20,9 +20,12 @@ const CourseChat = ({ courseData }) => {
   const { value } = useChatContext();
   const { username } = value;
   console.log("name", username)
-  const { chatAccessKey, chatID } = courseData;
+  const { chatAccessKey, chatID,courseName } = courseData;
   return (
-    <div className="relativen">
+    <div className="">
+      <div className="h-20 flex justify-center items-center bg-white">
+        <h1 className="text-center text-4xl font-semibold text-[#0083db]">{courseName}</h1>
+      </div>
       <ChatEngineWrapper>
         <ChatSocket
           projectID="27a5ab30-23cb-4d38-9933-71b24af69399"
@@ -33,7 +36,7 @@ const CourseChat = ({ courseData }) => {
         <div className="chatBox">
           <ChatFeed
             activeChat={chatID}
-            renderNewMessageForm={() => <MessageFormSocial />}
+            renderNewMessageForm={() => <MessageFormSocial  />}
           />
           {/* <ChatSettings /> */}
         </div>

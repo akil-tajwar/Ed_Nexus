@@ -76,6 +76,7 @@ const Courses = () => {
           ],
           ownerName: loggedInUserName,
           ownerEmail: loggedInUserEmail,
+          ownerImage: loggedInUserImage,
         };
 
         // Send formData to backend API for storage in MongoDB
