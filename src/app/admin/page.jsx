@@ -3,7 +3,7 @@ import React, { PureComponent } from "react";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { IoMdPaper } from "react-icons/io";
 import { BsJournalBookmarkFill, BsLinkedin } from "react-icons/bs";
-import { FaAward, FaInstagramSquare, FaTwitterSquare } from "react-icons/fa";
+import { FaAward, FaBell, FaInstagramSquare, FaTwitterSquare } from "react-icons/fa";
 import { BiLogoFacebookSquare } from "react-icons/bi";
 
 import { AiOutlineRight } from "react-icons/ai";
@@ -11,8 +11,96 @@ import { BiSearchAlt } from "react-icons/bi";
 import CountUp from "react-countup";
 import Layout from "@/component/Layout";
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { useState } from "react";
+import { useEffect } from "react";
 
-const dashboardPage = () => {
+const DashboardPage = () => {
+    const [users, setUsers] = useState([]);
+    const [blog, setBlog] = useState([]);
+    const [courses, setCourses] = useState([]);
+    const [notification, setNotification] = useState([]);
+
+
+    //  get user?
+    useEffect(() => {
+        async function fetchUsers() {
+            try {
+                const response = await fetch('http://localhost:3000/api/user');
+                if (response.ok) {
+                    const data = await response.json();
+                    setUsers(data);
+                } else {
+                    throw new Error('Error fetching products');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUsers();
+    }, [])
+    console.log(users.length, "yser");
+    // get blog?
+    useEffect(() => {
+        async function fetchUsers() {
+            try {
+                const response = await fetch('http://localhost:3000/api/blogs');
+                if (response.ok) {
+                    const data = await response.json();
+                    setBlog(data);
+                } else {
+                    throw new Error('Error fetching products');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchUsers();
+    }, [])
+    console.log(blog.length, "blog");
+    // get courses 
+    useEffect(() => {
+        async function fetchProducts() {
+            try {
+                const response = await fetch('http://localhost:3000/api/courses/create');
+                if (response.ok) {
+                    const data = await response.json();
+                    setCourses(data);
+                } else {
+                    throw new Error('Error fetching products');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchProducts();
+    }, []);
+
+    const Length = courses?.courses;
+    console.log(Length);
+    // get notification/ 
+    useEffect(() => {
+        async function fetchProducts() {
+            try {
+                const response = await fetch('http://localhost:3000/api/notification');
+                if (response.ok) {
+                    const data = await response.json();
+                    setNotification(data);
+                } else {
+                    throw new Error('Error fetching products');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchProducts();
+    }, []);
+    console.log(notification?.length, "notification");
+
+
     const data = [
         {
             name: 'week 1',
@@ -100,8 +188,8 @@ const dashboardPage = () => {
                             <p className="text-2xl font-bold text-white">User</p>
                             <div className="flex items-center">
                                 <CountUp
-                                    delay={2}
-                                    end={1000}
+                                    delay={1}
+                                    end={users?.length}
                                     className="text-black text-2xl font-semibold"
                                 />
                                 <span className="text-2xl font-semibold">+</span>
@@ -120,8 +208,8 @@ const dashboardPage = () => {
                             <p className="text-2xl font-bold text-white">Blogs</p>
                             <div className="flex items-center">
                                 <CountUp
-                                    delay={2}
-                                    end={100}
+                                    delay={1}
+                                    end={blog?.length}
                                     className="text-black text-2xl font-semibold"
                                 />
                                 <span className="text-2xl font-semibold">+</span>
@@ -133,15 +221,15 @@ const dashboardPage = () => {
                     <div className="card-body flex-row items-center justify-evenly">
                         <div className="avatar placeholder">
                             <div className="bg-[#FFF2D8] text-neutral-content rounded-full w-24">
-                                <FaAward size="3.5em" color="#FFAE27" />
+                                <FaBell size="3.5em" color="#FFAE27" />
                             </div>
                         </div>
                         <div className="flex flex-col space-y-3 justify-center">
-                            <p className="text-2xl font-bold text-white">Award</p>
+                            <p className="text-2xl font-bold text-white">Notification</p>
                             <div className="flex items-center">
                                 <CountUp
-                                    delay={2}
-                                    end={700}
+                                    delay={1}
+                                    end={notification?.length}
                                     className="text-black text-2xl font-semibold"
                                 />
                                 <span className="text-2xl font-semibold">+</span>
@@ -161,7 +249,7 @@ const dashboardPage = () => {
                             <div className="flex items-center">
                                 <CountUp
                                     delay={2}
-                                    end={300}
+                                    end={Length?.length}
                                     className="text-black text-2xl font-semibold"
                                 />
                                 <span className="text-2xl font-semibold">+</span>
@@ -299,4 +387,4 @@ const dashboardPage = () => {
     );
 };
 
-export default dashboardPage;
+export default DashboardPage;

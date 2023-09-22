@@ -3,7 +3,7 @@
 import Layout from '@/component/Layout';
 
 import React, { useState, useEffect } from 'react';
-import { FaUser, FaUserTie } from 'react-icons/fa';
+import { FaUser, FaUserShield, FaUserTie } from 'react-icons/fa';
 import IMAGE from "../../assets/unnamed.png"
 import Image from 'next/image';
 
@@ -46,7 +46,7 @@ function Userlist() {
             </ul> */}
             <div className="grid grid-cols-1 gap-3 mb-7">
 
-                <div class="flex items-center justify-between py-4 bg-white ">
+                <div class="flex items-center justify-between p-4 bg-white ">
                     <div>
                         <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5  dark:text-gray-400  " type="button">
                             <span class="sr-only">Action button</span>
@@ -94,7 +94,7 @@ function Userlist() {
                                     <th>Name</th>
                                     <th>Email</th>
 
-                                    <th>Details</th>
+                                    <th>Action</th>
                                     <th>Edit User</th>
                                 </tr>
                             </thead>
@@ -129,38 +129,9 @@ function Userlist() {
 
                                         <th>
 
-                                            {/* You can open the modal using document.getElementById('ID').showModal() method */}
-                                            <button className="btn bg-blue-700 btn-outline text-white btn-xs" onClick={() => document.getElementById('my_modal_3').showModal()}>Details</button>
-                                            <dialog id="my_modal_3" className="modal">
-                                                <div className="modal-box">
-                                                    <form method="dialog">
-                                                        {/* if there is a button in form, it will close the modal */}
-                                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                                    </form>
 
-                                                    <div className="hero  bg-base-200">
-                                                        <div className="hero-content ">
+                                            <button className="btn bg-blue-700 btn-outline text-white btn-xs" ><FaUserShield></FaUserShield>Make Admin</button>
 
-
-                                                            <div className='' >
-                                                                <div className='ml-12 text-center'>
-                                                                    <FaUserTie className="w-80 h-72  text-center items-center border border-[#0083db]  text-[#0083db] "></FaUserTie>
-                                                                    <Image src={IMAGE} alt="" fill={true} />
-                                                                </div>
-                                                                <h1 className="text-xl mt-8
-                                                                font-bold">Name:Towhidul Islam </h1>
-                                                                <p className=" pt-2">
-                                                                    Profession: Web-Developer
-                                                                </p>
-                                                                <p className=" ">
-                                                                    Email: towhid.raiyan@gmail.com
-                                                                </p>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </dialog>
                                         </th>
                                         <td>
                                             <button className="btn bg-red-700 btn-outline text-white btn-xs">Delete User</button>
