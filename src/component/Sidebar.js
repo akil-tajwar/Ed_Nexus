@@ -71,7 +71,7 @@ export default function Sidebar() {
                         <ul className="pt-2 pb-4 space-y-1 text-sm">
                             <li className="rounded-sm">
                                 <Link
-                                    href="/dashboard"
+                                    href="/admin"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
 
@@ -108,7 +108,7 @@ export default function Sidebar() {
 
 
                                     <AiOutlineAppstore className="w-6 h-6 text-gray-100"></AiOutlineAppstore>
-                                    <span className="text-gray-100 text-base">User Contact</span>
+                                    <span className="text-gray-100 text-base">Message</span>
                                 </Link>
                             </li>
                             <div className="divide-y divide-slate-200 ">
@@ -158,7 +158,7 @@ export default function Sidebar() {
                                 </Link>
                             </li>
 
-                            <li className="rounded-sm">
+                            {/* <li className="rounded-sm">
                                 <Link
                                     href="/settings"
                                     className="flex mt-40 items-center p-2 space-x-3 rounded-md"
@@ -184,7 +184,7 @@ export default function Sidebar() {
                                     </svg>
                                     <span className="text-gray-100 text-base">Settings</span>
                                 </Link>
-                            </li>
+                            </li> */}
                             <li className="rounded-sm">
                                 <Link
                                     href="/login"

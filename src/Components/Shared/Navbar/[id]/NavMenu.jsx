@@ -58,7 +58,7 @@ const NavMenu = () => {
       markNotificationsAsRead();
     }
   };
-  console.log(isDropdownOpen);
+  // console.log(isDropdownOpen);
   // For Getting Notication Data
   useEffect(() => {
     if (session) {
