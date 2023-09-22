@@ -20,7 +20,7 @@ const NavMenu = () => {
   const [click, setClick] = useState(false);
   // console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/userContact$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );

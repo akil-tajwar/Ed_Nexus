@@ -41,7 +41,7 @@ function CouseDetails() {
       <div>
         <div className="grid grid-cols-1 gap-3 mb-7">
 
-          <div class="flex items-center justify-between py-4 bg-white ">
+          <div class="flex items-center justify-between p-4 bg-white ">
             <div>
               <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5  dark:text-gray-400  " type="button">
                 <span class="sr-only">Action button</span>
@@ -147,7 +147,7 @@ function CouseDetails() {
                                 <div className='' >
                                   <div className='ml-12 text-center'>
                                     <FaUserTie className="w-80 h-72  text-center items-center border border-[#0083db]  text-[#0083db] "></FaUserTie>
-                                    <Image src="" alt="" fill={true} />
+                                    {/* <Image src="" alt="" fill={true} /> */}
                                   </div>
                                   <h1 className="text-xl mt-8
                                                 font-bold">Name:Towhidul Islam </h1>
