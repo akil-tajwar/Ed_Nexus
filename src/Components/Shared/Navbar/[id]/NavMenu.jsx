@@ -20,18 +20,7 @@ const NavMenu = () => {
   const [click, setClick] = useState(false);
   // console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [
-    /^\/login$/,
-    /^\/signUp$/,
-    /^\/Userlist$/,
-    /^\/CouseDetails$/,
-    /^\/admin$/,
-    /^\/students$/,
-    /^\/chat$/,
-    /^\/dashboard$/,
-    /^\/admindashboard$/,
-    /^\/courses\/\w+$/,
-  ];
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );
@@ -154,7 +143,7 @@ const NavMenu = () => {
                 <div className="card-body">
                   <div className="flex items-center justify-between">
                     <h1 className="text-black">Notification</h1>
-                    <h1 className="text-accent">Clear All</h1>
+                    {/* <h1 className="text-accent">Clear All</h1> */}
                   </div>
                   <div className="flex flex-row items-center border-2 whitespace-nowrap"></div>
                   <div className="overflow-x-auto h-52">
