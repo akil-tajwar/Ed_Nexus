@@ -36,7 +36,7 @@ const CourseDashboard = ({ params }) => {
     "Notice",
     "Members",
     "Assignments",
-    "Grades",
+    // "Grades",
     "Resourses",
   ];
   const [rangeValue, setRangeValue] = useState(0);
@@ -310,7 +310,7 @@ const CourseDashboard = ({ params }) => {
     };
 
     fetchAssignments();
-  });
+  }, [courseId]);
   // For Getting Member Data
   useEffect(() => {
     const fetchMember = async () => {
@@ -333,7 +333,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchMember();
-  });
+  }, [courseId]);
   console.log(member);
 
   // For Getting Notice Data
@@ -353,7 +353,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchNotice();
-  });
+  }, [courseId]);
   // For Getting Resources Data
   useEffect(() => {
     const fetchResource = async () => {
@@ -373,7 +373,7 @@ const CourseDashboard = ({ params }) => {
       }
     };
     fetchResource();
-  });
+  }, [courseId]);
 
   if (isLoading) {
     return <span className="loading loading-spinner text-warning"></span>;
@@ -958,7 +958,7 @@ const CourseDashboard = ({ params }) => {
               <h5 className="font-semibold text-2xl">
                 {presentCourse.ownerName}
               </h5>
-              <Link href="/">
+              <Link href="/video">
                 <BiLogoZoom size="2.5em" color="white" />
               </Link>
             </div>
@@ -969,7 +969,7 @@ const CourseDashboard = ({ params }) => {
                 <Link
                   href="#"
                   key={index}
-                  className={`font-semibold text-xl mb-2 flex flex-col items-start ${tabIndex === index
+                  className={` text-lg mb-2 flex flex-col items-start ${tabIndex === index
                     ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
                     : ""
                     }`}
@@ -979,11 +979,11 @@ const CourseDashboard = ({ params }) => {
                 </Link>
               ))}
             </li>
-            <li>
+            {/* <li>
               <p className="text-red-600 cursor-pointer font-semibold text-xl">
                 Delete this class
               </p>
-            </li>
+            </li> */}
           </div>
           {/* {navOptions} */}
           <div className="divider"></div>
