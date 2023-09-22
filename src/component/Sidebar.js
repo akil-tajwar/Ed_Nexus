@@ -59,12 +59,12 @@ export default function Sidebar() {
                                 </svg>
                             </button>
                         </span>
-                        <input
+                        {/* <input
                             type="search"
                             name="Search"
                             placeholder="Search..."
                             className="w-full py-2 pl-10 text-sm rounded-md focus:outline-none"
-                        />
+                        /> */}
                     </div>
                     <div className="flex-1">
                         <ul className="pt-2 pb-4 space-y-1 text-sm">

@@ -95,7 +95,7 @@ const CourseDashboard = ({ params }) => {
     };
 
     try {
-      const result = await fetch("http://localhost:3000/api/notice", {
+      const result = await fetch("https://ed-nexus.vercel.app/api/notice", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -179,7 +179,7 @@ const CourseDashboard = ({ params }) => {
     };
 
     try {
-      const result = await fetch("http://localhost:3000/api/assignment", {
+      const result = await fetch("https://ed-nexus.vercel.app/api/assignment", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -258,7 +258,7 @@ const CourseDashboard = ({ params }) => {
     };
 
     try {
-      const result = await fetch("http://localhost:3000/api/resources", {
+      const result = await fetch("https://ed-nexus.vercel.app/api/resources", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -324,7 +324,7 @@ const CourseDashboard = ({ params }) => {
   useEffect(() => {
     const fetchAssignments = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/assignment");
+        const response = await fetch("https://ed-nexus.vercel.app/api/assignment");
         if (response.ok) {
           const data = await response.json();
           const filterAssignment = data.filter(
@@ -346,7 +346,7 @@ const CourseDashboard = ({ params }) => {
     const fetchMember = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/courses/create"
+          "https://ed-nexus.vercel.app/api/courses/create"
         );
         if (response.ok) {
           const data = await response.json();
@@ -368,7 +368,7 @@ const CourseDashboard = ({ params }) => {
   useEffect(() => {
     const fetchNotice = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/notice");
+        const response = await fetch("https://ed-nexus.vercel.app/api/notice");
         if (response.ok) {
           const data = await response.json();
           const findNotice = data.filter((item) => item.course_id === courseId);
@@ -386,7 +386,7 @@ const CourseDashboard = ({ params }) => {
   useEffect(() => {
     const fetchResource = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/resources");
+        const response = await fetch("https://ed-nexus.vercel.app/api/resources");
         if (response.ok) {
           const data = await response.json();
           const findResource = data.filter(

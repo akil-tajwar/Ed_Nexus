@@ -32,7 +32,7 @@ const Blogs = ({ params }) => {
 		};
 
 		try {
-			const result = await fetch("http://localhost:3000/api/blogs", {
+			const result = await fetch("https://ed-nexus.vercel.app/api/blogs", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -82,7 +82,7 @@ const Blogs = ({ params }) => {
 		}
 	};
 	useEffect(() => {
-		fetch("http://localhost:3000/api/blogs")
+		fetch("https://ed-nexus.vercel.app/api/blogs")
 			.then((res) => res.json())
 			.then((data) => setBlogs(data))
 			.catch((error) => console.log(error));
@@ -137,16 +137,18 @@ const Blogs = ({ params }) => {
 	return (
 		<div className="py-32 lg:w-3/4 w-11/12 mx-auto">
 			<div className="text-end mb-10">
-				<button
+				{/* <button
 					onClick={() => window.my_modal_5.showModal()}
 					className="px-3 py-2 bg-[#0083db] rounded font-semibold text-white"
 				>
 					Add Blogs
-				</button>
+				</button> */}
 				<dialog id="my_modal_5" className="modal">
 					<form method="dialog" className="modal-box w-11/12 max-w-5xl">
+						<p className="text-left">Title</p>
+						<input className="border w-full rounded-lg p-2 mb-5" type="text" />
 						<textarea
-							className="w-full rounded-lg"
+							className="w-full rounded-lg border"
 							name=""
 							id=""
 							cols="30"
@@ -190,7 +192,7 @@ const Blogs = ({ params }) => {
 								<button className="text-[#0083db]">see more</button>
 							</Link>
 						</div>
-						<div className="flex justify-between">
+						{/* <div className="flex justify-between">
 							<div className="flex items-center gap-2">
 								<button onClick={() => toggleLike(blog._id)}>
 									{blog.liked ? (
@@ -247,7 +249,7 @@ const Blogs = ({ params }) => {
 									<p>0</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 					</div>
 				))}
 			</div>

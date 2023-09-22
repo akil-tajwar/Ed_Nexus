@@ -11,7 +11,7 @@ function CouseDetails() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const response = await fetch('http://localhost:3000/api/courses/create');
+        const response = await fetch('https://ed-nexus.vercel.app/api/courses/create');
         if (response.ok) {
           const data = await response.json();
           setCourses(data);

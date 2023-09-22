@@ -181,7 +181,7 @@ const CourseDashboard = ({ params }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/user");
+                const response = await fetch("https://ed-nexus.vercel.app/api/user");
                 if (response.ok) {
                     const data = await response.json();
                     const findUser = data.filter((item) => item.course_id === courseId);
@@ -203,7 +203,7 @@ const CourseDashboard = ({ params }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/courses/create");
+                const response = await fetch("https://ed-nexus.vercel.app/api/courses/create");
                 if (response.ok) {
                     const data = await response.json();
                     const findUser = data.filter((item) => item.course_id === courseId);

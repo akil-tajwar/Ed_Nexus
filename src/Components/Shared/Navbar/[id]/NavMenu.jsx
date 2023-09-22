@@ -45,7 +45,7 @@ const NavMenu = () => {
       const loggedInUserEmail = user.email;
       try {
         const response = await fetch(
-          "http://localhost:3000/api/isread/" + loggedInUserEmail,
+          "https://ed-nexus.vercel.app/api/isread/" + loggedInUserEmail,
           {
             method: "PUT",
           }
@@ -80,7 +80,7 @@ const NavMenu = () => {
       const fetchNotification = async () => {
         try {
           const response = await fetch(
-            "http://localhost:3000/api/notification/" + loggedInUserEmail
+            "https://ed-nexus.vercel.app/api/notification/" + loggedInUserEmail
           );
           if (response.ok) {
             const data = await response.json();
@@ -184,9 +184,8 @@ const NavMenu = () => {
               </div>
               <div
                 tabIndex={0}
-                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content ${
-                  isDropdownOpen ? "block" : "hidden"
-                }`}
+                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content ${isDropdownOpen ? "block" : "hidden"
+                  }`}
               >
                 <div className="card-body">
                   <div className="flex items-center justify-between">

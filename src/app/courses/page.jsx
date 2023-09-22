@@ -173,7 +173,7 @@ const Courses = () => {
       }
       try {
         const res = await fetch(
-          "http://localhost:3000/api/courses/" + courseId,
+          "https://ed-nexus.vercel.app/api/courses/" + courseId,
           {
             method: "GET",
           }

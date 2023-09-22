@@ -26,7 +26,7 @@ const DeleteUser = (props) => {
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch("http://localhost:3000/api/user/" + userEmail, {
+                fetch("https://ed-nexus.vercel.app/api/user/" + userEmail, {
                     method: "DELETE",
                 })
                     .then((response) => {
