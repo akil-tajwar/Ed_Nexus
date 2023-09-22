@@ -4,10 +4,10 @@ import { NextResponse } from "next/server"
 
 
 export async function POST(request) {
-    const { courseName, picture, password, chatID, chatAccessKey, members, ownerName, ownerEmail } = await request.json()
+    const { courseName,picture,password,chatID,chatAccessKey, members, ownerName,ownerEmail,ownerImage } = await request.json()
     await bdConnect()
     try {
-        const courses = await Courses.create({ courseName, picture, password, chatID, chatAccessKey, members, ownerName, ownerEmail })
+        const courses = await Courses.create({ courseName,picture,password,chatID,chatAccessKey, members, ownerName,ownerEmail,ownerImage  })
         // console.log("from course route after create",courses);
         return NextResponse.json({ course: courses, message: "successfully added data" }, { status: 200 })
     } catch (error) {

@@ -11,25 +11,46 @@ import { signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import { MdNotificationsNone } from "react-icons/md";
 import Image from "next/image";
+import CountUp from "react-countup";
 
 const NavMenu = () => {
   const { data: session } = useSession();
   const [notification, setNotification] = useState([]);
   const pathNames = usePathname();
-  console.log('Current path:', pathNames);
+  const [click, setClick] = useState(false);
+  // console.log('Current path:', pathNames);
 
   const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );
-  console.log('shouldHideNavbar:', shouldHideNavbar);
+  // console.log("shouldHideNavbar:", shouldHideNavbar);
 
+  // For Getting Notication Data
   useEffect(() => {
     if (session) {
       const { user } = session;
-      const loggedInUserName = user.name;
+      const loggedInUserEmail = user.email;
+
+      const fetchNotification = async () => {
+        try {
+          const response = await fetch(
+            "http://localhost:3000/api/notification/" + loggedInUserEmail
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setNotification(data);
+          } else {
+            console.error("Failed to fetch Notification.");
+          }
+        } catch (error) {
+          console.error("An error occurred:", error);
+        }
+      };
+      fetchNotification();
     }
-  }, [session]);
+  }, [session, notification]);
+
   function extractTimeFromISO(isoTimestamp) {
     const dateObj = new Date(isoTimestamp);
     const timeOffset = 6 * 60 * 60 * 1000;
@@ -38,24 +59,8 @@ const NavMenu = () => {
     const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   }
-  // For Getting Notication Data
-  useEffect(() => {
-    const fetchNotification = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/notification");
-        if (response.ok) {
-          const data = await response.json();
-          setNotification(data);
-        } else {
-          console.error("Failed to fetch Notification.");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-      }
-    };
-    fetchNotification();
-  }, []);
-  console.log("notification", notification);
+
+  // console.log("notification", notification);
   const menu = (
     <ul className="lg:flex gap-10 lg:py-6 items-center lg:text-xl ">
       <li>
@@ -123,7 +128,11 @@ const NavMenu = () => {
                 >
                   <MdNotificationsNone size="1.8em" color="white" />
                   <span className="indicator-item badge badge-secondary text-white">
-                    {notification.length}
+                    <CountUp
+                      delay={2}
+                      end={notification.length}
+                      className="text-white"
+                    />
                   </span>
                 </button>
               </div>
@@ -146,11 +155,11 @@ const NavMenu = () => {
                         >
                           <div className="avatar">
                             <div className="w-10 rounded-full">
-                              <Image src={item.image} alt="" fill={true} />
+                              <Image src={item.ownerImage} alt="" fill={true} />
                             </div>
                           </div>
                           <div>
-                            <p className="text-black">{item.description}</p>
+                            <p className="text-black">{item.message}</p>
                             <p>{extractTimeFromISO(item.createdAt)}</p>
                           </div>
                         </div>
