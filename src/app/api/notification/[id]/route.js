@@ -9,8 +9,10 @@ export async function GET(request, content) {
     const data = await Notification.find({
       userEmail: userEmail,
       isRead: false,
-    }).sort({ createdAt: -1 })
-    .exec();
+    })
+      .sort({ createdAt: -1 })
+      .exec();
     return NextResponse.json(data);
   } catch (error) {}
 }
+
