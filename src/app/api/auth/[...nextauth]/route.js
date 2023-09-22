@@ -45,7 +45,7 @@ export const authOptions = {
     secret: process.env.NEXTAUTH_SECRET,
 
     callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
+        async signIn({ user, account, profile, email, role = "member", credentials }) {
             if (account.type === 'oauth') {
                 return await signInWithOAuth({ account, profile })
             }
@@ -76,6 +76,7 @@ async function signInWithOAuth({ account, profile }) {
         name: profile.name,
         email: profile.email,
         image: profile.picture,
+        role: "member",
         provider: account.provider
     })
     await newUser.save()

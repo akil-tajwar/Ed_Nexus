@@ -28,48 +28,43 @@ const UserContact = () => {
 
         fetchProducts();
     }, []);
-    console.log(contact, "constact");
+    console.log(contact, "contact");
+
+    function extractTimeFromISO(isoTimestamp) {
+        const dateObj = new Date(isoTimestamp);
+        const timeOffset = 6 * 60 * 60 * 1000;
+        dateObj.setTime(dateObj.getTime() + timeOffset);
+        const hours = dateObj.getUTCHours().toString().padStart(2, "0");
+        const minutes = dateObj.getUTCMinutes().toString().padStart(2, "0");
+        return `${hours}:${minutes}`;
+      }
+
     return (
         <Layout>
+            <div className='grid grid-cols-3 gap-3'>
             {contact.map((item) => (
                 <div
-                    key={item?.course_id}
-                    className="card bg-base-100 my-2 shadow-2xl border-t-4 border-[#0083db]"
+                    key={item._id}
+                    className="card bg-base-100 py-2 shadow-2xl border-t-4 border-[#0083db]"
                 >
                     <div className="card-body  mt-3 ml-2 m-0 p-0">
                         <div className="flex items-center gap-3">
 
-                            <div>
-                                <h1 className="text-2xl mt-3 ml-2 font-bold">{item.name}</h1>
-                                <p className='ml-2 '>{item.createdAt}</p>
+                            <div className='flex items-center gap-2'>
+                                <h1 className="text-xl font-semibold">{item.name}</h1>
+                                <h1 className='text-accent'>{extractTimeFromISO(item.createdAt)}</h1>
                             </div>
                         </div>
                         <div className="space-y-2 mt-2">
-                            <h2 className="card-title text-[#0083db] text-2xl font-bold">
-                                <MdOutlineSubject size="1.4em" />
-                                Description
+                            <h2 className="card-title text-[#0083db] text-lg font-bold">
+                                <MdOutlineSubject size="1.2em" />
+                                {item.description}
                             </h2>
-                            <div className="text-base text-gray-600 ">
-                                <h1 className='ml-2'>{item.description}</h1>
-                            </div>
-                        </div>
-                        <div className="flex gap-3 items-center">
-                            <div className="avatar">
-                                <div className="w-12 rounded-full">
-
-                                </div>
-                            </div>
-                            <input
-                                type="text"
-                                placeholder="Ripley here"
-                                className="input mb-3 input-bordered input-info w-full"
-                                style={{ marginLeft: "500px" }}
-                            />
-                            <AiOutlineSend className='mr-3 mb-5' size="2.6em" />
                         </div>
                     </div>
                 </div>
             ))}
+            </div>
         </Layout>
     );
 };
