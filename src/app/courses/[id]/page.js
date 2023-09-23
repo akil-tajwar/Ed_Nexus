@@ -7,7 +7,7 @@ import Link from "next/link";
 import DatePicker from "react-datepicker";
 import { setHours, setMinutes } from "date-fns";
 import { useForm } from "react-hook-form";
-import { GiClockwork } from "react-icons/gi";
+import { GiClockwork, GiHamburgerMenu } from "react-icons/gi";
 import { MdOutlineSubject, MdDateRange } from "react-icons/md";
 import { RiFileList2Line } from "react-icons/ri";
 import { AiOutlineSend } from "react-icons/ai";
@@ -938,10 +938,12 @@ const CourseDashboard = ({ params }) => {
     <div className="drawer lg:drawer-open ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content ">
-        <label
-          htmlFor="my-drawer-2"
-          className="btn btn-primary drawer-button lg:hidden"
-        ></label>
+        <div className="mt-5 ml-5">
+          <label
+            htmlFor="my-drawer-2"
+            className="btn mr-2 drawer-button lg:hidden"
+          ><GiHamburgerMenu className="text-2xl" /></label>
+        </div>
         <div className="overflow-y-scroll col-span-2 rounded-lg mt-2">
           {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
                          <div item={item} key={item._id}>
@@ -989,8 +991,6 @@ const CourseDashboard = ({ params }) => {
               <Link href="/video" target="_blank">
                 <BiLogoZoom size="2.5em" color="white" />
               </Link>
-<<<<<<< HEAD
-=======
             </div>
             <div>
               <div>
@@ -999,7 +999,6 @@ const CourseDashboard = ({ params }) => {
                   Password: {presentCourse.password}
                 </h1>
               </div>
->>>>>>> bfd6e5725df0f6a85e9bc98cfb9aa0ad0adcbb37
             </div>
           </div>
           <div className="text-start">
@@ -1008,11 +1007,10 @@ const CourseDashboard = ({ params }) => {
                 <Link
                   href="#"
                   key={index}
-                  className={` text-lg mb-2 flex flex-col items-start ${
-                    tabIndex === index
-                      ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
-                      : ""
-                  }`}
+                  className={` text-lg mb-2 flex flex-col items-start ${tabIndex === index
+                    ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
+                    : ""
+                    }`}
                   onClick={() => handleTabClick(index)}
                 >
                   {category.charAt(0).toUpperCase() + category.slice(1)}

@@ -220,7 +220,7 @@ const Courses = () => {
   return (
     <div className="text-justify w-full mx-auto py-32">
       <div className="flex justify-center">
-        <div className="mr-5">
+        <div className="mr-5 mb-20">
           {/* Open the modal using ID.showModal() method */}
           <button
             className="btn bg-[#0083db] text-white"
