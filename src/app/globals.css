@@ -3,10 +3,15 @@
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Saira:wght@400;500;600;700&display=swap");
 
-*{
+* {
 	font-family: "Saira", sans-serif;
 }
 
 .shadow {
 	box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 5px 0px, rgba(0, 0, 0, 0.2) 0px 0px 1px 0px;
+}
+
+.blog-card {
+	position: absolute;
+	bottom: 0;
 }
