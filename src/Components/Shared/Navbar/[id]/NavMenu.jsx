@@ -128,13 +128,15 @@ const NavMenu = () => {
           <Link href="/chat">Chat</Link>
         </li>
       )}
+
+
     </ul>
   );
   return (
     <div>
       {!shouldHideNavbar ? (
-        <div className="navbar lg:w-3/4 w-11/12 mx-auto">
-          <div className="navbar-start">
+        <div className="navbar lg:w-3/4 w-full mx-auto">
+          <div className="pr-5 md:navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost lg:hidden">
                 <svg
@@ -157,6 +159,7 @@ const NavMenu = () => {
                 className="dropdown-content menu mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 {menu}
+                <div className="gap-10 pl-2"><Themes /></div>
               </ul>
             </div>
             <a className="btn btn-ghost normal-case text-xl md:text-4xl text-[#0083db]">
@@ -164,8 +167,8 @@ const NavMenu = () => {
             </a>
           </div>
           <div className="navbar-center hidden lg:flex">{menu}</div>
-          <div className="navbar-end gap-1">
-            <Themes />
+          <div className="md:navbar-end gap-1">
+            <div className="hidden md:inline"><Themes /></div>
             <div className="dropdown dropdown-bottom dropdown-end">
               <div>
                 <button

@@ -1,6 +1,4 @@
 
-
-// "use client"
 import { useEffect, useRef } from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useSession } from 'next-auth/react';
