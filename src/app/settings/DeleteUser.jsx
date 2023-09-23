@@ -79,9 +79,8 @@ const DeleteUser = (props) => {
         <button
           disabled={disabled}
           onClick={deleteUser}
-          className={`px-2 rounded ${
-            disabled ? "bg-red-200 text-[#a4a4a4]" : "bg-red-500 text-white"
-          }`}
+          className={`px-2 rounded ${disabled ? "bg-red-200 text-[#a4a4a4]" : "bg-red-500 text-white"
+            }`}
         >
           Yes
         </button>

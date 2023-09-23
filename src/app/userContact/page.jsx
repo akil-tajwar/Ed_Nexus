@@ -65,9 +65,7 @@ const UserContact = () => {
                     </td>
                     <td>{extractTimeFromISO(item.createdAt)}</td>
                     <td>
-                      <div>
-                        <div>
-                        <button
+                    <button
                         className="btn btn-warning text-white"
                         onClick={() =>
                           document.getElementById("my_modal_5").showModal()
@@ -80,7 +78,7 @@ const UserContact = () => {
                         className="modal modal-bottom sm:modal-middle"
                       >
                         <div className="modal-box">
-                          <h1>{item.description}</h1>
+                          <h1>{item.name}</h1>
                           <div className="modal-action">
                             <form method="dialog">
                               <button className="btn">Close</button>
@@ -88,8 +86,6 @@ const UserContact = () => {
                           </div>
                         </div>
                       </dialog>
-                        </div>
-                      </div>
                     </td>
                   </tr>
                 ))}

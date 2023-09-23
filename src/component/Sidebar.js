@@ -38,7 +38,7 @@ export default function Sidebar() {
                             </svg>
                         </button>
                     </div>
-                    <div className="relative">
+                    {/* <div className="relative">
                         <span className="absolute inset-y-0 left-0 flex items-center py-4">
                             <button
                                 type="submit"
@@ -66,7 +66,7 @@ export default function Sidebar() {
                             placeholder="Search..."
                             className="w-full py-2 pl-10 text-sm rounded-md focus:outline-none"
                         />
-                    </div>
+                    </div> */}
                     <div className="flex-1">
                         <ul className="pt-2 pb-4 space-y-1 text-sm">
                             <li className="rounded-sm">
