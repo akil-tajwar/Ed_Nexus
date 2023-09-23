@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import bdConnect from "@/utils/dbConnect";
 import User from "@/models/userModels/userModel";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
+
+
+
 
 export async function POST(request) {
     const { name, email, password, picture } = await request.json();
@@ -26,8 +31,19 @@ export async function POST(request) {
         );
     }
 }
-
-
+export async function PUT(request) {
+    const { name } = await request.json();
+    const session = await getServerSession(authOptions)
+    try {
+        const user = await User.findByIdAndUpdate(session?.user?._id, { name }, { new: true }).select('-password')
+        return NextResponse.json({ message: "User update" }, { status: 200 });
+    } catch (error) {
+        return NextResponse.json(
+            { message: "An error occurred while registering the user." },
+            { status: 500 }
+        );
+    }
+}
 export async function GET(req) {
     return NextResponse.json({ message: "User registered." }, { status: 201 });
 }

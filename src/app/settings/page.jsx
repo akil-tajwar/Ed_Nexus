@@ -1,12 +1,32 @@
-import React from "react";
+'use client'
+import { toast } from "react-toastify";
 import DeleteUser from "./DeleteUser";
-import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
-import Layout from "@/component/Layout";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
 
-const Settings = async ({ params }) => {
-  const session = await getServerSession(authOptions);
+const Settings = () => {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+  const handlePasswordChange = async (data) => {
+    const current_password = data.current_password;
+    const password = data.new_password;
+    const confirm_password = data.confirm_password
+    if (password !== confirm_password) {
+      return toast.warning('password not match')
+    }
+
+    else {
+      const res = await axios.put("http://localhost:3000/api/changePassword", { current_password, password });
+      const data = res.data;
+      console.log(data)
+      if (data.message) {
+        reset()
+        toast.success('Your password change')
+      }
+    }
+
+  }
   return (
     <div className="pt-32 lg:w-3/4 w-11/12 mx-auto px-7 py-10">
       <h5 className="font-semibold text-2xl">Profile Setting</h5>
@@ -25,7 +45,9 @@ const Settings = async ({ params }) => {
             <h6>Change password</h6>
             <p className="text-end">********2e</p>
             <div className="text-end">
-              <button className="bg-[#0083db] text-white px-2 rounded">
+              <button
+                onClick={() => window.my_modal_5.showModal()}
+                className="bg-[#0083db] text-white px-2 rounded">
                 Edit
               </button>
             </div>
@@ -90,9 +112,64 @@ const Settings = async ({ params }) => {
       <h5 className="font-semibold text-2xl">Danger Zone</h5>
       <div className="grid grid-cols-2 border border-red-500 mt-2 mb-10 p-3">
         <div className="col-span-2">
-          <DeleteUser email={session.user.email} />
+          {/* <DeleteUser email={session.user.email} /> */}
         </div>
       </div>
+
+      {/* password change dialog */}
+      <dialog id="my_modal_5" className="modal">
+        <form
+          method="dialog"
+          className="modal-box w-96 max-w-5xl"
+          onSubmit={handleSubmit(handlePasswordChange)}
+        >
+          <div className="form-control w-full max-w-xs">
+            <label className="label"> <span className="label-text">Current password</span></label>
+            <input
+              {...register("current_password", {
+                required: "Password is required!",
+                pattern: { value: /(?=.*[!@#$&*])/, message: 'password should be minimum one special character' },
+                minLength: { value: 6, message: 'password should be must 6 characters' }
+              })} placeholder="current password"
+              type="password" className="input input-bordered w-full max-w-xs" />
+            {errors?.current_password && <p className='text-red-600'>{errors?.current_password.message}</p>}
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label"> <span className="label-text">New password</span></label>
+            <input
+              {...register("new_password", {
+                required: "Password is required!",
+                pattern: { value: /(?=.*[!@#$&*])/, message: 'password should be minimum one special character' },
+                minLength: { value: 6, message: 'password should be must 6 characters' }
+              })} placeholder="new password"
+              type="password" className="input input-bordered w-full max-w-xs" />
+            {errors?.new_password && <p className='text-red-600'>{errors?.new_password.message}</p>}
+          </div>
+          <div className="form-control w-full max-w-xs">
+            <label className="label"> <span className="label-text">confirm password</span></label>
+            <input
+              {...register("confirm_password", {
+                required: "Password is required!",
+                pattern: { value: /(?=.*[!@#$&*])/, message: 'password should be minimum one special character' },
+                minLength: { value: 6, message: 'password should be must 6 characters' }
+              })} placeholder="Confirm password"
+              type="password" className="input input-bordered w-full max-w-xs" />
+            {errors?.confirm_password && <p className='text-red-600'>{errors?.confirm_password.message}</p>}
+          </div>
+
+          <div className="modal-action">
+            <button className="btn bg-[#0083db] text-white" type="submit">
+              Update Password
+            </button>
+            <button
+              className="btn bg-[#d83e26] text-white"
+              onClick={() => window.my_modal_5.close()}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </dialog>
     </div>
   );
 };

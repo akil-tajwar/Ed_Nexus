@@ -20,7 +20,6 @@ export const authOptions = {
             },
             async authorize(credentials, req) {
                 const { email, password } = credentials;
-                console.log(email, password, 'from callback')
                 try {
                     const user = await User.findOne({ email: email })
                     if (!user) {
@@ -30,7 +29,6 @@ export const authOptions = {
                     if (!isPasswordValid) {
                         return null;
                     }
-                    console.log(user, 'callback from user')
                     return user;
                 } catch (error) {
 
@@ -49,14 +47,25 @@ export const authOptions = {
             if (account.type === 'oauth') {
                 return await signInWithOAuth({ account, profile })
             }
-            console.log(user, 'from callback user main user')
             return true;
         },
         async jwt({ token, trigger, session }) {
-            console.log(trigger, 'from jwt callbacks')
+            console.log({ trigger, session }, 'form trigger')
+            if (trigger === 'update') {
+                token.user.name = session.name
+            }
+            else if (trigger === 'userUpdateProfile') {
+                token.user.image = session.image
+            }
+            else {
+                const user = await getUserByEmail({ email: token.email })
+                token.user = user;
+            }
+
             return token;
         },
         async session({ session, token }) {
+            session.user = token.user
             return session;
         }
     },
@@ -67,7 +76,6 @@ const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST }
 
 async function signInWithOAuth({ account, profile }) {
-    console.log(account)
     const user = await User.findOne({ email: profile.email })
     if (user) {
         return true
@@ -76,8 +84,14 @@ async function signInWithOAuth({ account, profile }) {
         name: profile.name,
         email: profile.email,
         image: profile.picture,
-        provider: account.provider
     })
     await newUser.save()
     return true;
+}
+
+async function getUserByEmail({ email }) {
+    const user = await User.findOne({ email }).select('-password')
+    if (!user) throw new Error('Email does not exsist')
+
+    return { ...user._doc, _id: user._id.toString() }
 }

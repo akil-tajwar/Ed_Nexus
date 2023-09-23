@@ -70,7 +70,6 @@ const NavMenu = () => {
       markNotificationsAsRead();
     }
   };
-  console.log(isDropdownOpen);
   // For Getting Notication Data
   useEffect(() => {
     if (session) {
@@ -184,9 +183,8 @@ const NavMenu = () => {
               </div>
               <div
                 tabIndex={0}
-                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content ${
-                  isDropdownOpen ? "block" : "hidden"
-                }`}
+                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content ${isDropdownOpen ? "block" : "hidden"
+                  }`}
               >
                 <div className="card-body">
                   <div className="flex items-center justify-between">

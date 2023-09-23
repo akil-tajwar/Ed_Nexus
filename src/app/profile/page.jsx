@@ -4,9 +4,10 @@ import UserInfo from '@/Components/profile/UserInfo/UserInfo';
 import PinnedClasses from '@/Components/profile/PinnedClasses/PinnedClasses';
 
 const Profile = () => {
+
     return (
         <div className='w-3/4 mx-auto pt-32 pb-20 px-[25px]'>
-            <div className='grid grid-cols-3 gap-5'>
+            <div className='grid grid-cols-3 gap-6'>
                 <div>
                     <UserInfo />
                     <hr />
