@@ -5,7 +5,7 @@ export async function PUT(request, content) {
   const userEmail = content.params.id;
   console.log("fdiufhu", userEmail);
   
-  await bdConnect();
+  await bdConnect();  
 
   try {
     // Mark notifications as read
