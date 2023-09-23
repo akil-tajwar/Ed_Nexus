@@ -990,6 +990,14 @@ const CourseDashboard = ({ params }) => {
                 <BiLogoZoom size="2.5em" color="white" />
               </Link>
             </div>
+            <div>
+              <div>
+                <h1 className="text-base">CourseID: {presentCourse._id}</h1>
+                <h1 className="text-base">
+                  Password: {presentCourse.password}
+                </h1>
+              </div>
+            </div>
           </div>
           <div className="text-start">
             <li>
@@ -997,10 +1005,11 @@ const CourseDashboard = ({ params }) => {
                 <Link
                   href="#"
                   key={index}
-                  className={` text-lg mb-2 flex flex-col items-start ${tabIndex === index
-                    ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
-                    : ""
-                    }`}
+                  className={` text-lg mb-2 flex flex-col items-start ${
+                    tabIndex === index
+                      ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
+                      : ""
+                  }`}
                   onClick={() => handleTabClick(index)}
                 >
                   {category.charAt(0).toUpperCase() + category.slice(1)}

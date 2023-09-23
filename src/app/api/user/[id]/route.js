@@ -130,3 +130,15 @@ export async function PUT(request, content) {
     );
   }
 }
+
+export async function GET(request,content) {
+  const userEmail = content.params.id;
+  await bdConnect();
+  try {
+    const data = await User.find({
+      email: userEmail,
+    })
+    // console.log(data[0].role)
+    return NextResponse.json(data[0]);
+  } catch (error) {}
+}
