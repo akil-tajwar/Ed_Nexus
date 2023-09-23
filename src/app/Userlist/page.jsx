@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 function Userlist() {
   const [users, setUsers] = useState([]);
 
+
+
   useEffect(() => {
     async function fetchUsers() {
       try {
@@ -41,7 +43,7 @@ function Userlist() {
         );
         if (response) {
           Swal.fire("Updated!", "This user is now Admin.", "success").then(
-            () => {}
+            () => { }
           );
         } else if (response.status === 404) {
           Swal.fire("Error!", "User not found.", "error");
@@ -72,7 +74,7 @@ function Userlist() {
             console.log(response);
             if (response.status === 200) {
               Swal.fire("Deleted!", "User has been deleted.", "success").then(
-                () => {}
+                () => { }
               );
             } else if (response.status === 404) {
               Swal.fire("Error!", "User not found.", "error");

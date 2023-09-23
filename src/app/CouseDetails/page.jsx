@@ -169,7 +169,7 @@ function CouseDetails() {
                         <br />
                       </td>
                       <td>{item.ownerEmail}</td>
-                      <td>{item.chatID}</td>
+                      <td>{item._id}</td>
                       {/* <th>
                         <button
                           className="btn bg-blue-700 btn-outline text-white btn-xs"
