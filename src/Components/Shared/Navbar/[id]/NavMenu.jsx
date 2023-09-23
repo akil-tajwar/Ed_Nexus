@@ -20,7 +20,20 @@ const NavMenu = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/userContact$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
+  const hideNavbarPatterns = [
+    /^\/login$/,
+    /^\/signUp$/,
+    /^\/Userlist$/,
+    /^\/CouseDetails$/,
+    /^\/admin$/,
+    /^\/students$/,
+    /^\/chat$/,
+    /^\/dashboard$/,
+    /^\/userContact$/,
+    /^\/admindashboard$/,
+    /^\/courses\/\w+$/,
+    /^\/video$/,
+  ];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );
@@ -172,8 +185,7 @@ const NavMenu = () => {
               </div>
               <div
                 tabIndex={0}
-                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content ${isDropdownOpen ? "block" : "hidden"
-                  }`}
+                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content`}
               >
                 <div className="card-body">
                   <div className="flex items-center justify-between">
