@@ -9,7 +9,7 @@ const BlogDetails = ({ params }) => {
     console.log(params);
     const [singleBlog, setSingleBlog] = useState([])
     useEffect(() => {
-        fetch('https://ed-nexus.vercel.app/api/blogs')
+        fetch('http://localhost:3000/api/blogs')
             .then(res => res.json())
             .then(data => {
                 const blog = data.find(item => item._id === params.id)

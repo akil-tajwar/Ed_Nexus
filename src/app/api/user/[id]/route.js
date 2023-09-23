@@ -93,3 +93,40 @@ export async function DELETE(request, content) {
     );
   }
 }
+
+export async function PUT(request, content) {
+  try {
+    const userEmail = content.params.id;
+
+    if (!userEmail) {
+      return NextResponse.json(
+        { error: "Email not provided" },
+        { status: 400 }
+      );
+    }
+
+    // Connect to the database
+    await bdConnect();
+
+    const userToUpdate = await User.findOne({ email: userEmail });
+
+    if (!userToUpdate) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    userToUpdate.role = "admin";
+
+    await userToUpdate.save();
+
+    return NextResponse.json(
+      { message: "User updated successfully" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error updating user:", error);
+    return NextResponse.json(
+      { error: "Failed to update user" },
+      { status: 500 }
+    );
+  }
+}

@@ -10,7 +10,7 @@ export const sendNotification = async (userEmail, ownerImage, message, time) => 
       updatedAt: time
     }
     // Make an API request to your server to store the notification
-    const response = await fetch("https://ed-nexus.vercel.app/api/notification", {
+    const response = await fetch("http://localhost:3000/api/notification", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 
 const Footer = () => {
   const pathNames = usePathname();
-  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/, /^\/userContact$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );

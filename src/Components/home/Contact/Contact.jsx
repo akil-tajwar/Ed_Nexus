@@ -28,7 +28,7 @@ const Contact = () => {
     };
 
     try {
-      const result = await fetch("https://ed-nexus.vercel.app/api/contact", {
+      const result = await fetch("http://localhost:3000/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -20,19 +20,7 @@ const NavMenu = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [
-    /^\/login$/,
-    /^\/signUp$/,
-    /^\/Userlist$/,
-    /^\/CouseDetails$/,
-    /^\/admin$/,
-    /^\/students$/,
-    /^\/chat$/,
-    /^\/dashboard$/,
-    /^\/admindashboard$/,
-    /^\/courses\/\w+$/,
-    /^\/video$/,
-  ];
+  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/userContact$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );
@@ -45,7 +33,7 @@ const NavMenu = () => {
       const loggedInUserEmail = user.email;
       try {
         const response = await fetch(
-          "https://ed-nexus.vercel.app/api/isread/" + loggedInUserEmail,
+          "http://localhost:3000/api/isread/" + loggedInUserEmail,
           {
             method: "PUT",
           }
@@ -70,7 +58,7 @@ const NavMenu = () => {
       markNotificationsAsRead();
     }
   };
-  console.log(isDropdownOpen);
+  // console.log(isDropdownOpen);
   // For Getting Notication Data
   useEffect(() => {
     if (session) {
@@ -80,7 +68,7 @@ const NavMenu = () => {
       const fetchNotification = async () => {
         try {
           const response = await fetch(
-            "https://ed-nexus.vercel.app/api/notification/" + loggedInUserEmail
+            "http://localhost:3000/api/notification/" + loggedInUserEmail
           );
           if (response.ok) {
             const data = await response.json();

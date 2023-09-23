@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import person from "../../../asstes/images/person2.jpg";
 import Image from 'next/image';
@@ -6,14 +7,16 @@ import { GiGraduateCap } from "react-icons/gi";
 import { MdLocationOn } from "react-icons/md";
 import { FaFacebookSquare } from "react-icons/fa";
 import { openModal, closeModal } from 'daisyui';
+import { useSession } from 'next-auth/react';
 
 const UserInfo = () => {
+    const { data: session } = useSession();
     return (
         <div className='pb-6'>
             <div className="w-80 h-80 relative text-center">
                 <Image
                     className="rounded-lg w-full h-full object-cover border-4 border-[#0083db]"
-                    src={person.src}
+                    src={session?.user?.image}
                     width={600}
                     height={600}
                     alt="user photo"
@@ -21,7 +24,7 @@ const UserInfo = () => {
             </div>
             <div className='pt-5'>
                 <div className='flex gap-5 items-center'>
-                    <h3 className='text-4xl font-semibold text-[#0083db]'>Nora Allen</h3>
+                    <h3 className='text-4xl font-semibold text-[#0083db]'>{session?.user?.name}</h3>
                     <HiOutlinePencilAlt className='text-2xl cursor-pointer' />
                     {/* <button className="btn" onClick={() => window.my_modal_1.showModal()}>open modal</button> */}
                     <dialog id="my_modal_1" className="modal">

@@ -1,52 +1,103 @@
 // components/ProductList.js
-"use client"
-import Layout from '@/component/Layout';
+"use client";
+import Layout from "@/component/Layout";
 
-import React, { useState, useEffect } from 'react';
-import { FaUser, FaUserTie } from 'react-icons/fa';
-import IMAGE from "../../assets/unnamed.png"
-import Image from 'next/image';
-
+import React, { useState, useEffect } from "react";
+import { FaUser, FaUserShield, FaUserTie } from "react-icons/fa";
+import IMAGE from "../../assets/unnamed.png";
+import Image from "next/image";
+import Swal from "sweetalert2";
 
 function Userlist() {
-    const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
 
 
 
-    useEffect(() => {
-        async function fetchUsers() {
-            try {
-                const response = await fetch('https://ed-nexus.vercel.app/api/user');
-                if (response.ok) {
-                    const data = await response.json();
-                    setUsers(data);
-                } else {
-                    throw new Error('Error fetching products');
-                }
-            } catch (error) {
-                console.error(error);
-            }
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await fetch("http://localhost:3000/api/user");
+        if (response.ok) {
+          const data = await response.json();
+          setUsers(data);
+        } else {
+          throw new Error("Error fetching products");
         }
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
-        fetchUsers();
-    }, [])
-    console.log(users, "yser");
+    fetchUsers();
+  }, [users]);
+  //   console.log(users, "yser");
 
-    return (
-        <Layout>
-            {/* <h1>Products</h1>
-            <ul>
-                {users.map((product) => (
-                    <li key={product._id}>
-                        <h2>{product.name}</h2>
-                        <p>{product.description}</p>
-                        <p>${product.price}</p>
-                    </li>
-                ))}
-            </ul> */}
-            <div className="grid grid-cols-1 gap-3 mb-7">
+  const makeAdmin = async (email) => {
+    if (users) {
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/user/" + email,
+          {
+            method: "PUT",
+          }
+        );
+        if (response) {
+          Swal.fire("Updated!", "This user is now Admin.", "success").then(
+            () => { }
+          );
+        } else if (response.status === 404) {
+          Swal.fire("Error!", "User not found.", "error");
+        } else {
+          Swal.fire("Error!", "Failed to make user Admin.", "error");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+  };
 
-                <div class="flex items-center justify-between py-4 bg-white ">
+  const deleteUser = async (email) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch("http://localhost:3000/api/user/" + email, {
+          method: "DELETE",
+        })
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              Swal.fire("Deleted!", "User has been deleted.", "success").then(
+                () => { }
+              );
+            } else if (response.status === 404) {
+              Swal.fire("Error!", "User not found.", "error");
+            } else {
+              Swal.fire("Error!", "Failed to delete user.", "error");
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting user:", error);
+            Swal.fire(
+              "Error!",
+              "An error occurred while deleting the user.",
+              "error"
+            );
+          });
+      }
+    });
+  };
+
+  return (
+    <Layout>
+      <div className="grid grid-cols-1 gap-3 mb-7">
+        {/* <div class="flex items-center justify-between p-4 bg-white ">
                     <div>
                         <button id="dropdownActionButton" data-dropdown-toggle="dropdownAction" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 py-1.5  dark:text-gray-400  " type="button">
                             <span class="sr-only">Action button</span>
@@ -82,102 +133,80 @@ function Userlist() {
                         </div>
                         <input type="text" id="table-search-users" class="block p-2 pl-10 text-sm text-black border  rounded-lg w-80  focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users" />
                     </div>
-                </div>
-                <div className="bg-base-100 shadow-2xl">
-                    <div className="overflow-x-auto">
-                        <table className="table">
-                            {/* head */}
-                            <thead>
-                                <tr className="text-center text-base">
-                                    <th>Image</th>
+                </div> */}
+        <div className="bg-base-100 shadow-2xl">
+          <div className="overflow-x-auto">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr className="text-center text-base">
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
+                  <th>Action</th>
+                  <th>Edit User</th>
+                </tr>
+              </thead>
+              <tbody>
+                {/* row 1 */}
+                {users?.map((item) => (
+                  <tr key={item.course_id} className="text-center">
+                    <td>
+                      <div className="flex justify-center items-center space-x-3">
+                        <div className="avatar">
+                          <div className="mask mask-squircle w-12 h-12">
+                            <Image src={item.image} alt="" fill={true} />
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="font-bold text-base">{item.name}</div>
+                    </td>
+                    <td className="text-base">
+                      {item.email}
+                      <br />
+                    </td>
+                    <td className="text-base">
+                      {item.role}
+                      <br />
+                    </td>
 
-                                    <th>Name</th>
-                                    <th>Email</th>
-
-                                    <th>Details</th>
-                                    <th>Edit User</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {/* row 1 */}
-                                {users?.map((item) => (
-                                    <tr key={item.course_id} className="text-center">
-                                        <td>
-
-                                            <div className="flex justify-center items-center space-x-3">
-
-                                                <div className="avatar">
-                                                    <div className="mask mask-squircle w-12 h-12">
-                                                        <Image
-                                                            src={item.image} alt="" fill={true}
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div className="font-bold text-base">{item.name}</div>
-                                            <div className="">{item.createdAt}</div>
-
-                                        </td>
-                                        <td className='text-base'>
-                                            {item.email}
-                                            <br />
-
-                                        </td>
-
-                                        <th>
-
-                                            {/* You can open the modal using document.getElementById('ID').showModal() method */}
-                                            <button className="btn bg-blue-700 btn-outline text-white btn-xs" onClick={() => document.getElementById('my_modal_3').showModal()}>Details</button>
-                                            <dialog id="my_modal_3" className="modal">
-                                                <div className="modal-box">
-                                                    <form method="dialog">
-                                                        {/* if there is a button in form, it will close the modal */}
-                                                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                                    </form>
-
-                                                    <div className="hero  bg-base-200">
-                                                        <div className="hero-content ">
-
-
-                                                            <div className='' >
-                                                                <div className='ml-12 text-center'>
-                                                                    <FaUserTie className="w-80 h-72  text-center items-center border border-[#0083db]  text-[#0083db] "></FaUserTie>
-                                                                    <Image src={IMAGE} alt="" fill={true} />
-                                                                </div>
-                                                                <h1 className="text-xl mt-8
-                                                                font-bold">Name:Towhidul Islam </h1>
-                                                                <p className=" pt-2">
-                                                                    Profession: Web-Developer
-                                                                </p>
-                                                                <p className=" ">
-                                                                    Email: towhid.raiyan@gmail.com
-                                                                </p>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </dialog>
-                                        </th>
-                                        <td>
-                                            <button className="btn bg-red-700 btn-outline text-white btn-xs">Delete User</button>
-                                        </td>
-
-
-                                    </tr>
-                                ))}
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div >
-
-        </Layout>
-    );
+                    <th>
+                      {item.role === "member" ? (
+                        <button
+                          className="btn bg-blue-700 btn-outline text-white btn-xs"
+                          onClick={() => makeAdmin(item.email)}
+                        >
+                          <FaUserShield></FaUserShield>Make Admin
+                        </button>
+                      ) : (
+                        <button
+                          className="btn bg-blue-700 btn-outline text-white btn-xs"
+                          disabled="disabled"
+                        >
+                          <FaUserShield></FaUserShield>Make Admin
+                        </button>
+                      )}
+                    </th>
+                    <td>
+                      <button
+                        className="btn bg-red-700 btn-outline text-white btn-xs"
+                        onClick={() => deleteUser(item.email)}
+                      >
+                        Delete User
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
 }
 
 export default Userlist;
