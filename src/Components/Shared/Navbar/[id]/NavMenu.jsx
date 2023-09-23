@@ -45,7 +45,7 @@ const NavMenu = () => {
       fetchUsers();
     }
   }, [session]);
-  
+
 
   const hideNavbarPatterns = [
     /^\/login$/,
