@@ -986,9 +986,9 @@ const CourseDashboard = ({ params }) => {
               <h5 className="font-semibold text-2xl">
                 {presentCourse.ownerName}
               </h5>
-              <Link href="/video">
+              {/* <Link href="/video">
                 <BiLogoZoom size="2.5em" color="white" />
-              </Link>
+              </Link> */}
             </div>
           </div>
           <div className="text-start">

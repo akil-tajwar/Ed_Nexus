@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import {
 	AiOutlineLike,
 	AiOutlineDislike,
@@ -12,11 +13,15 @@ import {
 	AiFillDislike,
 } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const Blogs = ({ params }) => {
 	const [blogs, setBlogs] = useState([]);
 	const blogsId = params.id;
-	console.log(blogs);
+	const {
+		handleSubmit,
+		reset,
+	} = useForm();
 
 	const onSubmitBlog = async (data) => {
 		const { image, title, author, content, date } = data;
@@ -144,14 +149,25 @@ const Blogs = ({ params }) => {
 					Add Blogs
 				</button>
 				<dialog id="my_modal_5" className="modal">
-					<form method="dialog" className="modal-box w-11/12 max-w-5xl">
-						<textarea
-							className="w-full rounded-lg"
-							name=""
-							id=""
-							cols="30"
-							rows="10"
-						></textarea>
+					<form method="dialog" onSubmit={handleSubmit(onSubmitBlog)} className="modal-box w-11/12 max-w-5xl">
+						<div className="mb-5">
+							<p className="text-left">Blog Banner</p>
+							<input className="w-full" type="file" />
+						</div>
+						<div className="mb-5">
+							<p className="text-left">Blog Title</p>
+							<input className="border w-full rounded-lg p-2" type="text" />
+						</div>
+						<div>
+							<p className="text-left">Blog Content</p>
+							<textarea
+								className="w-full rounded-lg border"
+								name=""
+								id=""
+								cols="30"
+								rows="10"
+							></textarea>
+						</div>
 						<div className="modal-action">
 							<button className="btn bg-[#0083db] text-white" type="submit">
 								Post
@@ -185,7 +201,9 @@ const Blogs = ({ params }) => {
 						</h1>
 						<p className="font-semibold text-xl pt-1">{blog.author}</p>
 						<div className="py-4">
-							<span>{blog.content.slice(0, 120)} . . . </span>
+							{typeof blog.content === 'string' && (
+								<span>{blog.content.slice(1, 90)} . . . </span>
+							)}
 							<Link href={`/blogs/${blog._id}`} item={blog} key={blog._id}>
 								<button className="text-[#0083db]">see more</button>
 							</Link>

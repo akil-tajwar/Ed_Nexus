@@ -17,15 +17,61 @@ const NavMenu = () => {
   const { data: session } = useSession();
   const [notification, setNotification] = useState([]);
   const pathNames = usePathname();
-  const [click, setClick] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // console.log('Current path:', pathNames);
 
-  const hideNavbarPatterns = [/^\/login$/, /^\/signUp$/, /^\/Userlist$/, /^\/CouseDetails$/, /^\/admin$/, /^\/students$/, /^\/chat$/, /^\/dashboard$/, /^\/admindashboard$/, /^\/courses\/\w+$/, /^\/video$/];
+  const hideNavbarPatterns = [
+    /^\/login$/,
+    /^\/signUp$/,
+    /^\/Userlist$/,
+    /^\/CouseDetails$/,
+    /^\/admin$/,
+    /^\/students$/,
+    /^\/chat$/,
+    /^\/dashboard$/,
+    /^\/userContact$/,
+    /^\/admindashboard$/,
+    /^\/courses\/\w+$/,
+    /^\/video$/,
+  ];
   const shouldHideNavbar = hideNavbarPatterns.some((pattern) =>
     pattern.test(pathNames)
   );
   // console.log("shouldHideNavbar:", shouldHideNavbar);
 
+  // Function to mark notifications as read
+  const markNotificationsAsRead = async () => {
+    if (session && notification.length > 0) {
+      const { user } = session;
+      const loggedInUserEmail = user.email;
+      try {
+        const response = await fetch(
+          "http://localhost:3000/api/isread/" + loggedInUserEmail,
+          {
+            method: "PUT",
+          }
+        );
+        if (response.ok) {
+          console.log("isRead True marked");
+        } else {
+          console.error("Failed to mark notifications as read.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+      }
+    }
+  };
+
+  // Function to toggle the modal
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+
+    // Mark notifications as read when the dropdown is opened
+    if (!isDropdownOpen) {
+      markNotificationsAsRead();
+    }
+  };
+  // console.log(isDropdownOpen);
   // For Getting Notication Data
   useEffect(() => {
     if (session) {
@@ -125,6 +171,7 @@ const NavMenu = () => {
                 <button
                   tabIndex={0}
                   className="btn btn-circle  bg-[#0083db] m-1 indicator p-3"
+                  onClick={toggleDropdown}
                 >
                   <MdNotificationsNone size="1.8em" color="white" />
                   <span className="indicator-item badge badge-secondary text-white">
@@ -138,7 +185,7 @@ const NavMenu = () => {
               </div>
               <div
                 tabIndex={0}
-                className="dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content"
+                className={`dropdown-content z-[1] card card-compact w-64 lg:w-[350px] p-2 shadow bg-white text-primary-content`}
               >
                 <div className="card-body">
                   <div className="flex items-center justify-between">

@@ -35,7 +35,7 @@ const Register = ({ callbackUrl }) => {
             //         setLoad(false)
             //     })
             console.log(photo)
-            const res = await axios.post("http://localhost:3000/api/register", { name, email, password });
+            const res = await axios.post("http://localhost:3000/api/register", { name, email, password, role: "member" });
             const data = res.data;
             console.log(data.user);
             if (!data.user) {

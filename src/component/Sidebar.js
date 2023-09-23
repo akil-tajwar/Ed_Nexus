@@ -1,4 +1,5 @@
 "use client"
+import LogOut from "@/Components/auth/LogOut";
 import Link from "next/link";
 import { useState } from "react";
 import { AiOutlineAppstore } from "react-icons/ai";
@@ -37,7 +38,7 @@ export default function Sidebar() {
                             </svg>
                         </button>
                     </div>
-                    <div className="relative">
+                    {/* <div className="relative">
                         <span className="absolute inset-y-0 left-0 flex items-center py-4">
                             <button
                                 type="submit"
@@ -65,12 +66,12 @@ export default function Sidebar() {
                             placeholder="Search..."
                             className="w-full py-2 pl-10 text-sm rounded-md focus:outline-none"
                         />
-                    </div>
+                    </div> */}
                     <div className="flex-1">
                         <ul className="pt-2 pb-4 space-y-1 text-sm">
                             <li className="rounded-sm">
                                 <Link
-                                    href="/dashboard"
+                                    href="/admin"
                                     className="flex items-center p-2 space-x-3 rounded-md"
                                 >
 
@@ -101,13 +102,13 @@ export default function Sidebar() {
                             </li>
                             <li className="rounded-sm mb-8">
                                 <Link
-                                    href="/students"
+                                    href="/userContact"
                                     className="flex items-center p-2 mb-5 space-x-3 rounded-md"
                                 >
 
 
                                     <AiOutlineAppstore className="w-6 h-6 text-gray-100"></AiOutlineAppstore>
-                                    <span className="text-gray-100 text-base">Students Activity</span>
+                                    <span className="text-gray-100 text-base">Message</span>
                                 </Link>
                             </li>
                             <div className="divide-y divide-slate-200 ">
@@ -157,7 +158,7 @@ export default function Sidebar() {
                                 </Link>
                             </li>
 
-                            <li className="rounded-sm">
+                            {/* <li className="rounded-sm">
                                 <Link
                                     href="/settings"
                                     className="flex mt-40 items-center p-2 space-x-3 rounded-md"
@@ -183,10 +184,10 @@ export default function Sidebar() {
                                     </svg>
                                     <span className="text-gray-100 text-base">Settings</span>
                                 </Link>
-                            </li>
+                            </li> */}
                             <li className="rounded-sm">
                                 <Link
-                                    href="/logout"
+                                    href="/login"
                                     className="flex  items-center p-2 space-x-3 rounded-md"
                                 >
                                     <svg
@@ -203,7 +204,7 @@ export default function Sidebar() {
                                             d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
                                         />
                                     </svg>
-                                    <span className="text-white font-bold text-base">Logout</span>
+                                    <span className="text-white font-bold text-base">Sign Out</span>
                                 </Link>
                             </li>
                         </ul>
