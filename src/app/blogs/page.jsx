@@ -15,54 +15,78 @@ import {
 import { BiCommentDetail } from "react-icons/bi";
 import { toast } from "react-toastify";
 
-const Blogs = ({ params }) => {
+const Blogs = () => {
 	const [blogs, setBlogs] = useState([]);
-	const blogsId = params.id;
+	const { data: session } = useSession();
 	const {
+		register,
 		handleSubmit,
+		formState: { errors },
 		reset,
 	} = useForm();
 
+	const currentDateLocal = new Date();
+	const timeOffset = 6 * 60 * 60 * 1000;
+	const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
+
+	//   Blog Post
 	const onSubmitBlog = async (data) => {
-		const { image, title, author, content, date } = data;
-		const newBlog = {
-			blogs_id: blogsId,
-			image,
-			title,
-			author,
-			content,
-			date,
-			likes: 0, // Initialize likes to 0
-			dislikes: 0, // Initialize dislikes to 0
-		};
+		const { title, content } = data;
+		if (session) {
+			const { user } = session;
+			const loggedInUserName = user.name;
+			const newBlog = {
+				image: "https://i.ibb.co/F7QGyg5/pexels-pixabay-262508.jpg",
+				title: title,
+				author: loggedInUserName,
+				content: content,
+				createdAt: currentDateBD.toISOString(),
+				updatedAt: currentDateBD.toISOString(),
+				like: 0,
+				dislike: 0,
+				comment: [],
+			};
+			console.log(newBlog)
 
-		try {
-			const result = await fetch("http://localhost:3000/api/blogs", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(newBlog),
-			});
-
-			if (result.ok) {
-				const responseData = await result.json();
-				setBlogs((prevBlogs) => [...prevBlogs, responseData]);
-				console.log("Blog is added:", responseData);
-				toast.success("Blog is Added!", {
-					position: "top-right",
-					autoClose: 5000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
+			try {
+				const result = await fetch("http://localhost:3000/api/blogs", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(newBlog),
 				});
-				reset();
-				window.my_modal_5.close();
-			} else {
-				toast.error("Failed to add blog.!", {
+
+				if (result.ok) {
+					const responseData = await result.json();
+					setBlogs((prevBlogs) => [...prevBlogs, responseData]);
+					console.log("Blog is added:", responseData);
+					toast.success("Blog is Added!", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+					reset();
+					window.my_modal_5.close();
+				} else {
+					toast.error("Failed to add blog.!", {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+				}
+			} catch (error) {
+				toast.error("An error occurred!", {
 					position: "top-right",
 					autoClose: 5000,
 					hideProgressBar: false,
@@ -73,25 +97,16 @@ const Blogs = ({ params }) => {
 					theme: "light",
 				});
 			}
-		} catch (error) {
-			toast.error("An error occurred!", {
-				position: "top-right",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: "light",
-			});
 		}
 	};
+
+	//   Blog Get
 	useEffect(() => {
 		fetch("http://localhost:3000/api/blogs")
 			.then((res) => res.json())
 			.then((data) => setBlogs(data))
 			.catch((error) => console.log(error));
-	}, []);
+	}, [blogs]);
 
 	const toggleLike = (blogId) => {
 		setBlogs((prevBlogs) =>
@@ -149,24 +164,41 @@ const Blogs = ({ params }) => {
 					Add Blogs
 				</button>
 				<dialog id="my_modal_5" className="modal">
-					<form method="dialog" onSubmit={handleSubmit(onSubmitBlog)} className="modal-box w-11/12 max-w-5xl">
+					<form
+						method="dialog"
+						onSubmit={handleSubmit(onSubmitBlog)}
+						className="modal-box w-11/12 max-w-5xl"
+					>
 						<div className="mb-5">
 							<p className="text-left">Blog Banner</p>
 							<input className="w-full" type="file" />
 						</div>
 						<div className="mb-5">
 							<p className="text-left">Blog Title</p>
-							<input className="border w-full rounded-lg p-2" type="text" />
+							<input
+								name="title"
+								{...register("title", { required: true })}
+								className="border w-full rounded-lg p-2"
+								type="text"
+							/>
+							{errors.name && (
+								<span className="text-red-600">title is required</span>
+							)}
 						</div>
 						<div>
 							<p className="text-left">Blog Content</p>
 							<textarea
-								className="w-full rounded-lg border"
-								name=""
+								className="w-full rounded-lg border p-2"
+								placeholder="Blog content here...."
 								id=""
 								cols="30"
 								rows="10"
+								{...register("content", { required: true })}
+								name="content"
 							></textarea>
+							{errors.name && (
+								<span className="text-red-600">Content is required</span>
+							)}
 						</div>
 						<div className="modal-action">
 							<button className="btn bg-[#0083db] text-white" type="submit">
@@ -182,87 +214,88 @@ const Blogs = ({ params }) => {
 					</form>
 				</dialog>
 			</div>
-			<div className="grid grid-cols-3 w-fit gap-5">
+			<div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 w-fit gap-5">
 				{blogs.map((blog) => (
-					<div key={blog._id} className="s-color w-fit p-5 rounded-lg">
+					<div key={blog._id} className="s-color relative p-5 rounded-lg">
 						<div className="relative w-full h-56">
-							{
-								blog.image &&
-								(<Image
-									className="h-full w-full object-cover rounded-t-lg"
+							{blog.image && (
+								<Image
+									className="object-cover rounded-t-lg"
 									src={blog.image}
 									alt=""
 									fill={true}
-								/>)
-							}
+								/>
+							)}
 						</div>
 						<h1 className="font-bold text-[#0083db] text-3xl pt-3">
 							{blog.title}
 						</h1>
 						<p className="font-semibold text-xl pt-1">{blog.author}</p>
-						<div className="py-4">
-							{typeof blog.content === 'string' && (
-								<span>{blog.content.slice(1, 90)} . . . </span>
+						<div className="pt-4 pb-[35px]">
+							{typeof blog.content === "string" && (
+								<span>{blog.content.slice(0, 90)} . . . </span>
 							)}
 							<Link href={`/blogs/${blog._id}`} item={blog} key={blog._id}>
 								<button className="text-[#0083db]">see more</button>
 							</Link>
 						</div>
-						<div className="flex justify-between">
-							<div className="flex items-center gap-2">
-								<button onClick={() => toggleLike(blog._id)}>
-									{blog.liked ? (
-										<AiFillLike className="text-2xl text-[#0083db]" />
-									) : (
-										<AiOutlineLike className="text-2xl text-[#0083db]" />
-									)}
-								</button>
-								<p>{blog.likes}</p>
-							</div>
-							<div className="flex items-center gap-2">
-								<button onClick={() => toggleDislike(blog._id)}>
-									{blog.disliked ? (
-										<AiFillDislike className="text-2xl text-[#0083db]" />
-									) : (
-										<AiOutlineDislike className="text-2xl text-[#0083db]" />
-									)}
-								</button>
-								<p>{blog.dislikes}</p>
-							</div>
-							<div className="flex items-center gap-2">
+						<div className="absolute left-0 bottom-0 w-full">
+							<div className="flex px-5 mb-5 justify-between">
 								<div className="flex items-center gap-2">
-									<button onClick={() => window.my_modal_4.showModal()}>
-										{<BiCommentDetail className="text-2xl text-[#0083db]" />}
+									<button onClick={() => toggleLike(blog._id)}>
+										{blog.liked ? (
+											<AiFillLike className="text-2xl text-[#0083db]" />
+										) : (
+											<AiOutlineLike className="text-2xl text-[#0083db]" />
+										)}
 									</button>
-									<dialog id="my_modal_4" className="modal">
-										<form
-											method="dialog"
-											className="modal-box w-11/12 max-w-5xl"
-										>
-											<textarea
-												className="w-full rounded-lg"
-												name=""
-												id=""
-												cols="30"
-												rows="10"
-											></textarea>
-											<div className="modal-action">
-												<button
-													className="btn bg-[#0083db] text-white"
-													type="submit"
-												>
-													Post
-												</button>
-												<button
-													className="btn bg-[#d83e26] text-white"
-													onClick={() => window.my_modal_4.close()}
-												>
-													Cancel
-												</button>
-											</div>
-										</form>
-									</dialog>
-									<p>0</p>
+									<p>{blog.likes}</p>
+								</div>
+								<div className="flex items-center gap-2">
+									<button onClick={() => toggleDislike(blog._id)}>
+										{blog.disliked ? (
+											<AiFillDislike className="text-2xl text-[#0083db]" />
+										) : (
+											<AiOutlineDislike className="text-2xl text-[#0083db]" />
+										)}
+									</button>
+									<p>{blog.dislikes}</p>
+								</div>
+								<div className="flex items-center gap-2">
+									<div className="flex items-center gap-2">
+										<button onClick={() => window.my_modal_4.showModal()}>
+											{<BiCommentDetail className="text-2xl text-[#0083db]" />}
+										</button>
+										<dialog id="my_modal_4" className="modal">
+											<form
+												method="dialog"
+												className="modal-box w-11/12 max-w-5xl"
+											>
+												<textarea
+													className="w-full rounded-lg"
+													name=""
+													id=""
+													cols="30"
+													rows="10"
+												></textarea>
+												<div className="modal-action">
+													<button
+														className="btn bg-[#0083db] text-white"
+														type="submit"
+													>
+														Post
+													</button>
+													<button
+														className="btn bg-[#d83e26] text-white"
+														onClick={() => window.my_modal_4.close()}
+													>
+														Cancel
+													</button>
+												</div>
+											</form>
+										</dialog>
+										<p>0</p>
+									</div>
 								</div>
 							</div>
 						</div>

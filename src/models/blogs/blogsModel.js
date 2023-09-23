@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 import { Schema, model, models } from "mongoose";
 
 const blogsSchema = new Schema({
-    blogs_id: {
-        type: String,
-    },
     image: {
         type: String,
     },
@@ -17,7 +14,10 @@ const blogsSchema = new Schema({
     content: {
         type: String,
     },
-    Date: {
+    createdAt: {
+        type: String,
+    },
+    updatedAt: {
         type: String,
     },
     like: {
@@ -40,6 +40,6 @@ const blogsSchema = new Schema({
         }
     ]
 }, { timestamps: true })
-const Blogs = models.Blogs || model("Blogs", blogsSchema);
+const Blogs = models.blogs || model("blogs", blogsSchema);
 
 export default Blogs;

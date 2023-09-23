@@ -18,7 +18,34 @@ const NavMenu = () => {
   const [notification, setNotification] = useState([]);
   const pathNames = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // console.log('Current path:', pathNames);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    if (session) {
+      const { user } = session;
+      const loggedInUserEmail = user.email;
+      async function fetchUsers() {
+        try {
+          const response = await fetch(
+            "http://localhost:3000/api/user/" + loggedInUserEmail,
+            {
+              method: "GET",
+            }
+          );
+          if (response.ok) {
+            const data = await response.json();
+            setUsers(data);
+          } else {
+            throw new Error("Error fetching User");
+          }
+        } catch (error) {
+          console.error(error);
+        }
+      }
+      fetchUsers();
+    }
+  }, [session]);
+  
 
   const hideNavbarPatterns = [
     /^\/login$/,
@@ -112,13 +139,15 @@ const NavMenu = () => {
       <li>
         <Link href="/">Home</Link>
       </li>
-      <li>
-        <Link href="/courses">Courses</Link>
-      </li>
+      {session && (
+        <li>
+          <Link href="/courses">Courses</Link>
+        </li>
+      )}
       <li>
         <Link href="/blogs">Blogs</Link>
       </li>
-      {session && (
+      {(session && users.role === "admin") && (
         <li>
           <Link href="/admin">Dashboard</Link>
         </li>
