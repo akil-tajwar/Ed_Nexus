@@ -112,9 +112,11 @@ const NavMenu = () => {
       <li>
         <Link href="/">Home</Link>
       </li>
-      <li>
-        <Link href="/courses">Courses</Link>
-      </li>
+      {session && (
+        <li>
+          <Link href="/courses">Courses</Link>
+        </li>
+      )}
       <li>
         <Link href="/blogs">Blogs</Link>
       </li>
