@@ -13,7 +13,7 @@ const Footer = () => {
       {
         !shouldHideNavbar ?
           <div className="bg-[#0083db] text-white">
-            <div className="flex justify-between py-5 w-11/12 lg:w-3/4 mx-auto text-lg">
+            <div className="flex lg:justify-between justify-center items-center gap-10 lg:flex-row flex-col py-5 w-11/12 lg:w-3/4 mx-auto text-lg">
               <Link href="/"><p className="text-4xl font-semibold">ED_NEXUS</p></Link>
               <aside>
                 <h3 className="text-2xl pb-1 font-semibold">Social Links</h3>
@@ -39,8 +39,8 @@ const Footer = () => {
                 </div>
               </aside>
               <div>
-                <h3 className="text-2xl pb-1 font-semibold">Quick Links</h3>
-                <div className="flex gap-8">
+                <h3 className="text-2xl pb-1 text-center font-semibold">Quick Links</h3>
+                <div className="flex flex-wrap gap-8">
                   <Link href="/" className="link link-hover">Home</Link>
                   <Link href="/courses" className="link link-hover">Courses</Link>
                   <Link href="/blogs" className="link link-hover">Blog</Link>
