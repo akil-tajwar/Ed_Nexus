@@ -989,6 +989,8 @@ const CourseDashboard = ({ params }) => {
               <Link href="/video" target="_blank">
                 <BiLogoZoom size="2.5em" color="white" />
               </Link>
+<<<<<<< HEAD
+=======
             </div>
             <div>
               <div>
@@ -997,6 +999,7 @@ const CourseDashboard = ({ params }) => {
                   Password: {presentCourse.password}
                 </h1>
               </div>
+>>>>>>> bfd6e5725df0f6a85e9bc98cfb9aa0ad0adcbb37
             </div>
           </div>
           <div className="text-start">
