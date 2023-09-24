@@ -18,7 +18,8 @@ export async function PUT(request) {
         console.log(user)
         const isPasswordValid = await bcrypt.compare(current_password, user.password);
         if (!isPasswordValid) throw new error('Your Current password is wrong')
-        await User.findByIdAndUpdate(session?.user?._id, { password }, { new: true }).select('-password')
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await User.findByIdAndUpdate(session?.user?._id, { password: hashedPassword }, { new: true }).select('-password')
         return NextResponse.json({ message: "User update" }, { status: 200 });
     } catch (error) {
         return NextResponse.json(

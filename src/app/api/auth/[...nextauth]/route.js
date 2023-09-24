@@ -44,6 +44,8 @@ export const authOptions = {
 
     callbacks: {
         async signIn({ user, account, profile, email, credentials }) {
+            console.log({ account })
+            console.log({ profile }, 'google provider')
             if (account.type === 'oauth') {
                 return await signInWithOAuth({ account, profile })
             }
@@ -84,8 +86,11 @@ async function signInWithOAuth({ account, profile }) {
         name: profile.name,
         email: profile.email,
         image: profile.picture,
+        role: profile.role,
+        provider: account.provider
     })
     await newUser.save()
+    console.log(newUser)
     return true;
 }
 

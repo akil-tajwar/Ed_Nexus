@@ -8,8 +8,8 @@ const PinnedClasses = () => {
         console.log(data)
     }
     return (
-        <div className=''>
-            <div className='w-96 p-7'>
+        <div className='grid grid-cols-2 gap-6 p-5 '>
+            {/* <div className='w-96 p-7'>
                 <h2 className="text-4xl">Add A Doctor</h2>
                 <form onSubmit={handleSubmit(handleAddDoctor)}>
                     <div className="form-control w-full max-w-xs">
@@ -36,7 +36,12 @@ const PinnedClasses = () => {
                     </div>
                     <input className='btn btn-accent w-full mt-4' value="Add Doctor" type="submit" />
                 </form>
+            </div> */}
+            <div>
+                <h1>name</h1>
+                <p></p>
             </div>
+            <div></div>
         </div>
     );
 };

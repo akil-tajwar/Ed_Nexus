@@ -10,12 +10,14 @@ import { GiTeacher } from "react-icons/gi";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { imageUpload } from "@/apiHook/imageUpload";
+import { useRouter } from "next/navigation";
 
 const Courses = () => {
+  const router = useRouter();
   const [courseName, setCourseName] = useState("");
   const [password, setPassword] = useState("");
   const [picture, setPicture] = useState("");
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [courseData, setCourseData] = useState([]);
   const [courseId, setCourseId] = useState("");
   const [joinPassword, setJoinPassword] = useState("");
@@ -219,212 +221,218 @@ const Courses = () => {
       preserveAspectRatio: "xMidYMid slice",
     },
   };
-  return (
-    <div className="text-justify w-full mx-auto py-32">
-      <div className="flex justify-center">
-        <div className="mr-5">
-          {/* Open the modal using ID.showModal() method */}
-          <button
-            className="btn bg-[#0083db] text-white"
-            onClick={() => window.my_modal_5.showModal()}
-          >
-            Create Class
-          </button>
-          <dialog id="my_modal_5" className="modal sm:modal-middle">
-            <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <div className="card-body">
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Course Name</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="course name"
-                    placeholder="Course Name"
-                    className="input input-bordered"
-                    onChange={(e) => setCourseName(e.target.value)}
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Course Picture</span>
-                  </label>
-                  <input
-                    type="file"
-                    name="picture"
-                    placeholder="Course picture"
-                    className="input input-bordered"
-                    onChange={(e) => setPicture(e.target.files[0])}
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    className="input input-bordered"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <div className="form-control mt-2">
-                  <form method="dialog">
-                    <button
-                      className="btn bg-blue-600 text-white hover:bg-blue-700 px-[110px]"
-                      type="submit"
-                      onClick={handleSubmit}
-                    >
-                      Create Class
-                    </button>
-                  </form>
-                  <form method="dialog">
-                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">
-                      Close
-                    </button>
-                  </form>
-                  {/* <button method="dialog" className="btn bg-red-600 text-white hover:bg-red-700">
-                    Close
-                  </button> */}
-                </div>
-              </div>
-            </form>
-          </dialog>
-        </div>
-        <div>
-          {/* Open the modal using ID.showModal() method */}
-          <button
-            className="btn bg-[#0083db] text-white"
-            onClick={() => window.my_modal_6.showModal()}
-          >
-            Join Class
-          </button>
-          <dialog id="my_modal_6" className="modal sm:modal-middle">
-            <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <div className="card-body">
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Course ID</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="course id"
-                    placeholder="Course ID"
-                    className="input input-bordered"
-                    onChange={(e) => setCourseId(e.target.value)}
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    className="input input-bordered"
-                    onChange={(e) => setJoinPassword(e.target.value)}
-                  />
-                </div>
-                <div className="form-control mt-2">
-                  <form method="dialog">
-                    <button
-                      className="btn bg-blue-600 text-white hover:bg-blue-700 px-[121px]"
-                      type="submit"
-                      onClick={() => handleJoin(courseId, joinPassword)}
-                    >
-                      Join Class
-                    </button>
-                  </form>
-                  <form method="dialog">
-                    <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">
-                      Close
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </form>
-          </dialog>
-        </div>
-      </div>
 
-      {courseData.length === 0 ? (
-        // Showing picture when there is no course data
-        <div className="w-full flex flex-col items-center justify-center">
-          <Lottie
-            className="mx-auto my-5"
-            options={defaultOptions}
-            height={400}
-            width={400}
-          />
+
+  if (status === 'authenticated') {
+    return (
+      <div className="text-justify w-full mx-auto py-32">
+        <div className="flex justify-center">
+          <div className="mr-5">
+            {/* Open the modal using ID.showModal() method */}
+            <button
+              className="btn bg-[#0083db] text-white"
+              onClick={() => window.my_modal_5.showModal()}
+            >
+              Create Class
+            </button>
+            <dialog id="my_modal_5" className="modal sm:modal-middle">
+              <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="card-body">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Course Name</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="course name"
+                      placeholder="Course Name"
+                      className="input input-bordered"
+                      onChange={(e) => setCourseName(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Course Picture</span>
+                    </label>
+                    <input
+                      type="file"
+                      name="picture"
+                      placeholder="Course picture"
+                      className="input input-bordered"
+                      onChange={(e) => setPicture(e.target.files[0])}
+                    />
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      className="input input-bordered"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-control mt-2">
+                    <form method="dialog">
+                      <button
+                        className="btn bg-blue-600 text-white hover:bg-blue-700 px-[110px]"
+                        type="submit"
+                        onClick={handleSubmit}
+                      >
+                        Create Class
+                      </button>
+                    </form>
+                    <form method="dialog">
+                      <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">
+                        Close
+                      </button>
+                    </form>
+                    {/* <button method="dialog" className="btn bg-red-600 text-white hover:bg-red-700">
+                      Close
+                    </button> */}
+                  </div>
+                </div>
+              </form>
+            </dialog>
+          </div>
           <div>
-            <p className="mx-auto text-xl font-semibold my-3">
-              You have no classes Yet !!!
-            </p>
+            {/* Open the modal using ID.showModal() method */}
+            <button
+              className="btn bg-[#0083db] text-white"
+              onClick={() => window.my_modal_6.showModal()}
+            >
+              Join Class
+            </button>
+            <dialog id="my_modal_6" className="modal sm:modal-middle">
+              <form className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+                <div className="card-body">
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Course ID</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="course id"
+                      placeholder="Course ID"
+                      className="input input-bordered"
+                      onChange={(e) => setCourseId(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      className="input input-bordered"
+                      onChange={(e) => setJoinPassword(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-control mt-2">
+                    <form method="dialog">
+                      <button
+                        className="btn bg-blue-600 text-white hover:bg-blue-700 px-[121px]"
+                        type="submit"
+                        onClick={() => handleJoin(courseId, joinPassword)}
+                      >
+                        Join Class
+                      </button>
+                    </form>
+                    <form method="dialog">
+                      <button className="btn bg-red-600 text-white hover:bg-red-700 px-[139px]">
+                        Close
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </form>
+            </dialog>
           </div>
         </div>
-      ) : (
-        // Show courses when there is course data
-        <div>
-          <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-fit my-6 gap-6">
-            {courseData.map((item) => (
-              <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
-                <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
-                  <div className="h-56 w-full relative">
-                    <Image src={item.picture} className="w-full h-full object-cover rounded-t-2xl" alt="" fill={true} />
-                  </div>
-                  <div className="avatar-group -space-x-7 absolute top-[50%] right-3">
-                    {item.members.slice(0, 4).map((member, index) => (
-                      <div className="avatar" key={index}>
-                        <div className="w-12">
-                          <Image src={member.image} alt="" fill={true} />
+
+        {courseData.length === 0 ? (
+          // Showing picture when there is no course data
+          <div className="w-full flex flex-col items-center justify-center">
+            <Lottie
+              className="mx-auto my-5"
+              options={defaultOptions}
+              height={400}
+              width={400}
+            />
+            <div>
+              <p className="mx-auto text-xl font-semibold my-3">
+                You have no classes Yet !!!
+              </p>
+            </div>
+          </div>
+        ) : (
+          // Show courses when there is course data
+          <div>
+            <div className="grid justify-items-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mx-auto w-fit my-6 gap-6">
+              {courseData.map((item) => (
+                <Link href={`/courses/${item?._id}`} item={item} key={item._id}>
+                  <div className="card card-compact w-96 h-96 bg-base-100 shadow-2xl">
+                    <div className="h-56 w-full relative">
+                      <Image src={item.picture} className="w-full h-full object-cover rounded-t-2xl" alt="" fill={true} />
+                    </div>
+                    <div className="avatar-group -space-x-7 absolute top-[50%] right-3">
+                      {item.members.slice(0, 4).map((member, index) => (
+                        <div className="avatar" key={index}>
+                          <div className="w-12">
+                            <Image src={member.image} alt="" fill={true} />
+                          </div>
+                        </div>
+                      ))}
+                      <div className="avatar placeholder">
+                        <div className="w-12 bg-neutral-focus text-neutral-content">
+                          <span>+{item.members.length}</span>
                         </div>
                       </div>
-                    ))}
-                    <div className="avatar placeholder">
-                      <div className="w-12 bg-neutral-focus text-neutral-content">
-                        <span>+{item.members.length}</span>
-                      </div>
                     </div>
-                  </div>
-                  <div className="card-body">
-                    <h2 className="text-2xl font-bold">{item.courseName}</h2>
-                    <div className="flex gap-3">
-                      <GiTeacher size="1.6em" />
-                      <h2 className="text-lg font-bold">{item.ownerName}</h2>
-                    </div>
-                    {/* <div className="flex items-center gap-2">
-                    <h1 className="text-lg font-medium">4.0(75 reviews)</h1>
-                    <div className="flex items-center">
-                      <AiFillStar size="1.6em" color="#FDCC0D" />
-                      <AiFillStar size="1.6em" color="#FDCC0D" />
-                      <AiFillStar size="1.6em" color="#FDCC0D" />
-                      <AiFillStar size="1.6em" color="#FDCC0D" />
-                      <AiOutlineStar size="1.6em" />
-                    </div>
-                  </div> */}
-                    <div className="card-actions justify-between mt-6">
-                      <div className="flex items-center gap-2">
-                        <HiOutlineUserGroup size="1.9em" />
-                        <h1 className="text-lg">
-                          {item.members.length} people
-                        </h1>
+                    <div className="card-body">
+                      <h2 className="text-2xl font-bold">{item.courseName}</h2>
+                      <div className="flex gap-3">
+                        <GiTeacher size="1.6em" />
+                        <h2 className="text-lg font-bold">{item.ownerName}</h2>
                       </div>
                       {/* <div className="flex items-center gap-2">
-                      <HiOutlineBookOpen size="1.9em" />
-                      <h1 className="text-lg">3 lessons</h1>
+                      <h1 className="text-lg font-medium">4.0(75 reviews)</h1>
+                      <div className="flex items-center">
+                        <AiFillStar size="1.6em" color="#FDCC0D" />
+                        <AiFillStar size="1.6em" color="#FDCC0D" />
+                        <AiFillStar size="1.6em" color="#FDCC0D" />
+                        <AiFillStar size="1.6em" color="#FDCC0D" />
+                        <AiOutlineStar size="1.6em" />
+                      </div>
                     </div> */}
+                      <div className="card-actions justify-between mt-6">
+                        <div className="flex items-center gap-2">
+                          <HiOutlineUserGroup size="1.9em" />
+                          <h1 className="text-lg">
+                            {item.members.length} people
+                          </h1>
+                        </div>
+                        {/* <div className="flex items-center gap-2">
+                        <HiOutlineBookOpen size="1.9em" />
+                        <h1 className="text-lg">3 lessons</h1>
+                      </div> */}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  }
+
+  return router.push('/login')
 };
 
 export default Courses;
