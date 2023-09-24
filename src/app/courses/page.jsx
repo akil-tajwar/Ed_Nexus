@@ -50,7 +50,7 @@ const Courses = () => {
           },
           {
             headers: {
-              "Project-ID": "27a5ab30-23cb-4d38-9933-71b24af69399",
+              "Project-ID": "43644d8b-ebfa-461a-8fcc-fbbd80d16a42",
               "User-Name": loggedInUserName,
               "User-Secret": loggedInUserEmail,
             },
@@ -192,7 +192,7 @@ const Courses = () => {
             },
             {
               headers: {
-                "Project-ID": "27a5ab30-23cb-4d38-9933-71b24af69399",
+                "Project-ID": "43644d8b-ebfa-461a-8fcc-fbbd80d16a42",
                 "User-Name": ownerName,
                 "User-Secret": ownerEmail,
               },
