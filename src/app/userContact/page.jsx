@@ -12,23 +12,22 @@ const UserContact = () => {
   const [contact, setContact] = useState([]);
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function fetchContacts() {
       try {
         const response = await fetch("http://localhost:3000/api/contact");
         if (response.ok) {
           const data = await response.json();
           setContact(data);
         } else {
-          throw new Error("Error fetching products");
+          throw new Error("Error fetching contacts");
         }
       } catch (error) {
         console.error(error);
       }
     }
 
-    fetchProducts();
+    fetchContacts();
   }, []);
-  //   console.log(contact, "contact");
 
   function extractTimeFromISO(isoTimestamp) {
     const dateObj = new Date(isoTimestamp);
@@ -54,7 +53,7 @@ const UserContact = () => {
                 </tr>
               </thead>
               <tbody>
-                {contact.map((item) => (
+                {contact.map((item, index) => (
                   <tr key={item._id} className="text-center">
                     <td>
                       <div className="font-bold text-base">{item.name}</div>
@@ -66,22 +65,24 @@ const UserContact = () => {
                     <td>{extractTimeFromISO(item.createdAt)}</td>
                     <td>
                       <button
-                        className="btn btn-warning text-white"
+                        className="btn bg-blue-600 text-white hover:bg-blue-700"
                         onClick={() =>
-                          document.getElementById("my_modal_5").showModal()
+                          document.getElementById(`my_modal_${index}`).showModal()
                         }
                       >
                         Message
                       </button>
                       <dialog
-                        id="my_modal_5"
+                        id={`my_modal_${index}`}
                         className="modal modal-bottom sm:modal-middle"
                       >
                         <div className="modal-box">
-                          <h1>{item.name}</h1>
+                          <h1>{item.description}</h1>
                           <div className="modal-action">
                             <form method="dialog">
-                              <button className="btn">Close</button>
+                              <button className="btn" onClick={() => document.getElementById(`my_modal_${index}`).close()}>
+                                Close
+                              </button>
                             </form>
                           </div>
                         </div>
@@ -99,3 +100,4 @@ const UserContact = () => {
 };
 
 export default UserContact;
+
