@@ -28,7 +28,7 @@ const CourseChat = ({ courseData }) => {
       </div>
       <ChatEngineWrapper>
         <ChatSocket
-          projectID="27a5ab30-23cb-4d38-9933-71b24af69399"
+          projectID="43644d8b-ebfa-461a-8fcc-fbbd80d16a42"
           chatID={chatID}
           chatAccessKey={chatAccessKey}
           senderUsername={username}
