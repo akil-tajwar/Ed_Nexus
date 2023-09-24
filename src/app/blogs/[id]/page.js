@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { useEffect, useState } from "react";
 import {
@@ -44,12 +45,11 @@ const BlogDetails = ({ params }) => {
         setSingleBlog(blogsWithLikesAndDislikes);
       })
       .catch((error) => console.log(error));
-  }, [singleBlog]);
-  console.log(singleBlog);
+  }, [params.id, singleBlog]);
+  // console.log(singleBlog);
   //   comment send
   const sendComment = async (blogId) => {
     if (session) {
-      console.log(blogId);
       const { user } = session;
       const loggedInUserName = user.name;
       const loggedInUserImage = user.image;
@@ -84,7 +84,7 @@ const BlogDetails = ({ params }) => {
           });
           setSelectedBlog((prevBlog) => ({
             ...prevBlog,
-            comment: [...prevBlog.comment, data.comment], // Assuming the API response has a "comment" field
+            comment: [...prevBlog.comment, data.comment],
           }));
           setComment(null);
         } else {
@@ -100,16 +100,16 @@ const BlogDetails = ({ params }) => {
           });
         }
       } catch (error) {
-        toast.error("An error occurred!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        // toast.error("An error occurred!", {
+        //   position: "top-right",
+        //   autoClose: 5000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "light",
+        // });
       }
     }
   };
@@ -182,17 +182,17 @@ const BlogDetails = ({ params }) => {
     }
   };
   return (
-    <div className="pt-32 mb-20 lg:w-3/4 w-11/12 mx-auto">
+    <div className="pt-32 mb-20 lg:w-3/4 w-11/12 mx-auto ">
       <div>
         <div className="text-xl breadcrumbs">
           <ul>
             <li>
-              <a>Home</a>
+              <Link href="/">Home</Link>
             </li>
             <li>
-              <a>Blogs</a>
+              <Link href="/blogs">Blogs</Link>
             </li>
-            <li className="text-[#0083db]">Details</li>
+            <li className="text-[#0083db] font-semibold">Details</li>
           </ul>
         </div>
         <h1 className="text-5xl border-l-4 border-[#0083db] pl-5 py-2 font-semibold">
@@ -269,59 +269,61 @@ const BlogDetails = ({ params }) => {
                   <div className="my-2 font-semibold">
                     <p>{singleBlog?.comment?.length}comments</p>
                   </div>
-                  {singleBlog?.comment?.map((item) => (
-                    <>
-                      {item?.userEmail === session?.user?.email ? (
-                        <>
-                          <div className="chat chat-end">
-                            <div className="chat-image avatar">
-                              <div className="w-10 rounded-full">
-                                <Image
-                                  alt=""
-                                  src={item?.userImage}
-                                  fill={true}
-                                  className="rounded-xl"
-                                />
+                  <div className="max-h-80 overflow-y-scroll">
+                    {singleBlog?.comment?.map((item) => (
+                      <>
+                        {item?.userEmail === session?.user?.email ? (
+                          <>
+                            <div className="chat chat-end">
+                              <div className="chat-image avatar">
+                                <div className="w-10 rounded-full">
+                                  <Image
+                                    alt=""
+                                    src={item?.userImage}
+                                    fill={true}
+                                    className="rounded-xl"
+                                  />
+                                </div>
+                              </div>
+                              <div className="chat-header">
+                                {item?.userName}
+                                <time className="text-xs opacity-50 ml-1">
+                                  {formatTime(item?.createdAt)}
+                                </time>
+                              </div>
+                              <div className="chat-bubble bg-[#0083db] text-white font-semibold">
+                                {item?.comment}
                               </div>
                             </div>
-                            <div className="chat-header">
-                              {item?.userName}
-                              <time className="text-xs opacity-50 ml-1">
-                                {formatTime(item?.createdAt)}
-                              </time>
-                            </div>
-                            <div className="chat-bubble bg-[#0083db] text-white font-semibold">
-                              {item?.comment}
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        <>
-                          <div className="chat chat-start">
-                            <div className="chat-image avatar">
-                              <div className="w-10 rounded-full">
-                                <Image
-                                  alt=""
-                                  src={item?.userImage}
-                                  fill={true}
-                                  className="rounded-xl"
-                                />
+                          </>
+                        ) : (
+                          <>
+                            <div className="chat chat-start">
+                              <div className="chat-image avatar">
+                                <div className="w-10 rounded-full">
+                                  <Image
+                                    alt=""
+                                    src={item?.userImage}
+                                    fill={true}
+                                    className="rounded-xl"
+                                  />
+                                </div>
+                              </div>
+                              <div className="chat-header">
+                                {item?.userName}
+                                <time className="text-xs opacity-50 ml-1">
+                                  {formatTime(item?.createdAt)}
+                                </time>
+                              </div>
+                              <div className="chat-bubble bg-[#0083db] text-white font-semibold">
+                                {item?.comment}
                               </div>
                             </div>
-                            <div className="chat-header">
-                              {item?.userName}
-                              <time className="text-xs opacity-50 ml-1">
-                                {formatTime(item?.createdAt)}
-                              </time>
-                            </div>
-                            <div className="chat-bubble bg-[#0083db] text-white font-semibold">
-                              {item?.comment}
-                            </div>
-                          </div>
-                        </>
-                      )}
-                    </>
-                  ))}
+                          </>
+                        )}
+                      </>
+                    ))}
+                  </div>
 
                   <div className="modal-action">
                     <form method="dialog">

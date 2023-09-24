@@ -198,7 +198,7 @@ const Blogs = () => {
       .catch((error) => console.log(error));
   }, [blogs, selectedBlog]);
 
-  const openCommentModal = (blog) => {
+  const openCommentModal = async (blog) => {
     setSelectedBlog(blog);
     setShowState(true);
     const modal = document.getElementById("my_modal_4");
@@ -274,10 +274,12 @@ const Blogs = () => {
         <div className="text-xl breadcrumbs">
           <ul>
             <li>
-              <a>Home</a>
+              <Link href="/">Home</Link>
             </li>
-            <li className="text-[#0083db]">
-              <a>Blogs</a>
+            <li>
+              <Link href="/blogs" className="text-[#0083db] font-semibold">
+                Blogs
+              </Link>
             </li>
           </ul>
         </div>
@@ -420,59 +422,62 @@ const Blogs = () => {
                         <div className="my-2 font-semibold">
                           <p>{selectedBlog?.comment?.length}comments</p>
                         </div>
-                        {selectedBlog?.comment?.map((item) => (
-                          <>
-                            {item?.userEmail === session?.user?.email ? (
+                        <div className="max-h-80 overflow-y-scroll">
+                          {selectedBlog &&
+                            selectedBlog?.comment?.map((item) => (
                               <>
-                                <div className="chat chat-end">
-                                  <div className="chat-image avatar">
-                                    <div className="w-10 rounded-full">
-                                      <Image
-                                        alt=""
-                                        src={item?.userImage}
-                                        fill={true}
-                                        className="rounded-xl"
-                                      />
+                                {item?.userEmail === session?.user?.email ? (
+                                  <>
+                                    <div className="chat chat-end">
+                                      <div className="chat-image avatar">
+                                        <div className="w-10 rounded-full">
+                                          <Image
+                                            alt=""
+                                            src={item?.userImage}
+                                            fill={true}
+                                            className="rounded-xl"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="chat-header">
+                                        {item?.userName}
+                                        <time className="text-xs opacity-50 ml-1">
+                                          {formatTime(item?.createdAt)}
+                                        </time>
+                                      </div>
+                                      <div className="chat-bubble bg-[#0083db] text-white font-semibold">
+                                        {item?.comment}
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div className="chat-header">
-                                    {item?.userName}
-                                    <time className="text-xs opacity-50 ml-1">
-                                      {formatTime(item?.createdAt)}
-                                    </time>
-                                  </div>
-                                  <div className="chat-bubble bg-[#0083db] text-white font-semibold">
-                                    {item?.comment}
-                                  </div>
-                                </div>
-                              </>
-                            ) : (
-                              <>
-                                <div className="chat chat-start">
-                                  <div className="chat-image avatar">
-                                    <div className="w-10 rounded-full">
-                                      <Image
-                                        alt=""
-                                        src={item?.userImage}
-                                        fill={true}
-                                        className="rounded-xl"
-                                      />
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="chat chat-start">
+                                      <div className="chat-image avatar">
+                                        <div className="w-10 rounded-full">
+                                          <Image
+                                            alt=""
+                                            src={item?.userImage}
+                                            fill={true}
+                                            className="rounded-xl"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="chat-header">
+                                        {item?.userName}
+                                        <time className="text-xs opacity-50 ml-1">
+                                          {formatTime(item?.createdAt)}
+                                        </time>
+                                      </div>
+                                      <div className="chat-bubble bg-[#0083db] text-white font-semibold">
+                                        {item?.comment}
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div className="chat-header">
-                                    {item?.userName}
-                                    <time className="text-xs opacity-50 ml-1">
-                                      {formatTime(item?.createdAt)}
-                                    </time>
-                                  </div>
-                                  <div className="chat-bubble bg-[#0083db] text-white font-semibold">
-                                    {item?.comment}
-                                  </div>
-                                </div>
+                                  </>
+                                )}
                               </>
-                            )}
-                          </>
-                        ))}
+                            ))}
+                        </div>
 
                         <div className="modal-action">
                           <form method="dialog">
