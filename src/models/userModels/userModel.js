@@ -13,6 +13,15 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+    },
+    role: {
+        type: String,
+        enum: ['member', 'teacher', 'admin'],
+        default: 'member'
+    },
+    provider: {
+        type: String,
+        default: 'credentials'
     }
 }, { timestamps: true })
 
