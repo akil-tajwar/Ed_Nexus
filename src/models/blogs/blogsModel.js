@@ -12,6 +12,9 @@ const blogsSchema = new Schema(
     author: {
       type: String,
     },
+    authorImage: {
+      type: String,
+    },
     content: {
       type: String,
     },
@@ -40,12 +43,21 @@ const blogsSchema = new Schema(
         userName: {
           type: String,
         },
-        userPicture: {
+        userImage: {
+          type: String,
+        },
+        userEmail: {
           type: String,
         },
         comment: {
           type: String,
         },
+        createdAt: {
+          type: String,
+        },
+        updatedAt: {
+          type: String,
+        }
       },
     ],
   },
