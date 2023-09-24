@@ -12,6 +12,8 @@ import { useState } from "react";
 import { MdNotificationsNone } from "react-icons/md";
 import Image from "next/image";
 import CountUp from "react-countup";
+import Lottie from "lottie-react";
+import Notification from "../../../../assets/LottieAnimation/notification.json"
 
 const NavMenu = () => {
   const { data: session } = useSession();
@@ -228,29 +230,46 @@ const NavMenu = () => {
               >
                 <div className="card-body">
                   <div className="flex items-center justify-between">
-                    <h1 className="text-black">Notification</h1>
+                    <h1 className="text-black text-base">Notification</h1>
                     {/* <h1 className="text-accent">Clear All</h1> */}
                   </div>
                   <div className="flex flex-row items-center border-2 whitespace-nowrap"></div>
-                  <div className="overflow-x-auto h-52">
-                    {notification.map((item) => (
+                  <div className="overflow-x-auto h-56">
+                    {notification.length > 0 ? (
                       <>
-                        <div
-                          key={item._id}
-                          className="flex items-center gap-3 px-2 py-4"
-                        >
-                          <div className="avatar">
-                            <div className="w-10 rounded-full">
-                              <Image src={item.ownerImage} alt="" fill={true} />
+                        {notification.map((item) => (
+                          <>
+                            <div
+                              key={item._id}
+                              className="flex items-center gap-3 px-2 py-4"
+                            >
+                              <div className="avatar">
+                                <div className="w-10 rounded-full">
+                                  <Image
+                                    src={item.ownerImage}
+                                    alt=""
+                                    fill={true}
+                                  />
+                                </div>
+                              </div>
+                              <div>
+                                <p className="text-black">{item.message}</p>
+                                <p>{extractTimeFromISO(item.createdAt)}</p>
+                              </div>
                             </div>
-                          </div>
-                          <div>
-                            <p className="text-black">{item.message}</p>
-                            <p>{extractTimeFromISO(item.createdAt)}</p>
-                          </div>
-                        </div>
+                          </>
+                        ))}
                       </>
-                    ))}
+                    ) : (
+                      <>
+                        {
+                          <Lottie
+                            animationData={Notification}
+                            loop={true}
+                          ></Lottie>
+                        }
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

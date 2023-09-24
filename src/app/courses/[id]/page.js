@@ -28,11 +28,12 @@ import {
   MdLibraryBooks,
   MdPayment,
 } from "react-icons/md";
+import { BiLogoBlogger } from "react-icons/bi";
 import { sendNotification } from "@/app/Notification/notification";
 const CourseDashboard = ({ params }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const categories = [
-    "Chat",
+    "Discussion",
     "Notice",
     "Members",
     "Assignments",
@@ -408,7 +409,7 @@ const CourseDashboard = ({ params }) => {
   }
 
   const categoryContent = {
-    Chat: presentCourse ? (
+    Discussion: presentCourse ? (
       <CourseChat courseData={presentCourse} />
     ) : (
       <div>Course data is not available</div>
@@ -523,14 +524,17 @@ const CourseDashboard = ({ params }) => {
                 <div className="avatar">
                   <div className="w-16 rounded-full">
                     <Image
-                      src="https://i.ibb.co/2v8qVbc/photo-1592009309602-1dde752490ae.jpg"
+                      src={presentCourse.ownerImage}
                       alt=""
                       fill={true}
+                      className="rounded"
                     />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold">Jane Doe</h1>
+                  <h1 className="text-2xl font-bold">
+                    {presentCourse.ownerName}
+                  </h1>
                   <p>{extractTimeFromISO(item.createdAt)}</p>
                 </div>
               </div>
@@ -543,7 +547,7 @@ const CourseDashboard = ({ params }) => {
                   <h1>{item.description}</h1>
                 </div>
               </div>
-              <div className="flex gap-3 mt-5 items-center">
+              {/* <div className="flex gap-3 mt-5 items-center">
                 <div className="avatar">
                   <div className="w-12 rounded-full">
                     <Image
@@ -559,7 +563,7 @@ const CourseDashboard = ({ params }) => {
                   className="input input-bordered input-info w-full"
                 />
                 <AiOutlineSend size="2.5em" />
-              </div>
+              </div> */}
             </div>
           </div>
         ))}
@@ -769,9 +773,27 @@ const CourseDashboard = ({ params }) => {
           >
             <div className="card-body">
               <div className="flex justify-between items-center">
-                <button className="btn bg-[#0083db] text-white w-1/5 font-bold">
+                {/* <button className="btn bg-[#0083db] text-white w-1/5 font-bold">
                   Active
-                </button>
+                </button> */}
+                <div className="flex items-center gap-3">
+                  <div className="avatar">
+                    <div className="w-16 rounded-full">
+                      <Image
+                        src={presentCourse.ownerImage}
+                        alt=""
+                        fill={true}
+                        className="rounded"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <h1 className="text-2xl font-bold">
+                      {presentCourse.ownerName}
+                    </h1>
+                    <p>{extractTimeFromISO(item.createdAt)}</p>
+                  </div>
+                </div>
                 <div className="flex items-center gap-2">
                   <GiClockwork size="2em" color="#0083db" />
                   <h1 className="text-lg font-bold">20 days left</h1>
@@ -793,14 +815,14 @@ const CourseDashboard = ({ params }) => {
                   <p className="text-base text-gray-600">{item.description}</p>
                 </div>
               </div>
-              <div className="flex justify-end gap-2">
+              {/* <div className="flex justify-end gap-2">
                 <button className="btn btn-outline btn-info text-lg font-bold">
                   View
                 </button>
                 <button className="btn btn-outline btn-error text-lg font-bold">
                   Edit
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}
@@ -942,7 +964,9 @@ const CourseDashboard = ({ params }) => {
           <label
             htmlFor="my-drawer-2"
             className="btn mr-2 drawer-button lg:hidden"
-          ><GiHamburgerMenu className="text-2xl" /></label>
+          >
+            <GiHamburgerMenu className="text-2xl" />
+          </label>
         </div>
         <div className="overflow-y-scroll col-span-2 rounded-lg mt-2">
           {/* {menu.filter((item) => item.category === categories[tabIndex]).map(item => (
@@ -959,7 +983,7 @@ const CourseDashboard = ({ params }) => {
       </div>
       <div className="drawer-side ">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-96 h-full bg-[#0083db]  text-white text-lg">
+        <ul className="menu p-4 w-[340px] h-full bg-[#0083db]  text-white text-lg">
           {/* Sidebar content here */}
           <div className="w-full h-28 relative text-center">
             {presentCourse.picture ? (
@@ -1007,10 +1031,11 @@ const CourseDashboard = ({ params }) => {
                 <Link
                   href="#"
                   key={index}
-                  className={` text-lg mb-2 flex flex-col items-start ${tabIndex === index
-                    ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
-                    : ""
-                    }`}
+                  className={` text-lg flex flex-col items-start ${
+                    tabIndex === index
+                      ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
+                      : ""
+                  }`}
                   onClick={() => handleTabClick(index)}
                 >
                   {category.charAt(0).toUpperCase() + category.slice(1)}
@@ -1033,6 +1058,11 @@ const CourseDashboard = ({ params }) => {
           <li>
             <Link href="/courses">
               <FaSignOutAlt></FaSignOutAlt> Courses
+            </Link>
+          </li>
+          <li>
+            <Link href="/blogs">
+              <BiLogoBlogger></BiLogoBlogger> Blogs
             </Link>
           </li>
         </ul>
