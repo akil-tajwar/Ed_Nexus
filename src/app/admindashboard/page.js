@@ -226,7 +226,7 @@ const CourseDashboard = ({ params }) => {
         fetchUser();
     }, [courseId]);
 
-    console.log(teacher, "hei teacer");
+    console.log(teacher, "Hello Sir");
 
     const categoryContent = {
         User_Stats: (
