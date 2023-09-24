@@ -1,45 +1,56 @@
 import mongoose from "mongoose";
 import { Schema, model, models } from "mongoose";
 
-const blogsSchema = new Schema({
+const blogsSchema = new Schema(
+  {
     image: {
-        type: String,
+      type: String,
     },
     title: {
-        type: String,
+      type: String,
     },
     author: {
-        type: String,
+      type: String,
     },
     content: {
-        type: String,
+      type: String,
     },
     createdAt: {
-        type: String,
+      type: String,
     },
     updatedAt: {
-        type: String,
+      type: String,
     },
-    like: {
-        type: Number,
-    },
-    dislike: {
-        type: Number,
-    },
+    like: [
+      {
+        userEmail: {
+          type: String,
+        },
+      },
+    ],
+    dislike: [
+      {
+        userEmail: {
+          type: String,
+        },
+      },
+    ],
     comment: [
-        {
-            userName: {
-                type: String,
-            },
-            userPicture: {
-                type: String,
-            },
-            comment: {
-                type: String,
-            }
-        }
-    ]
-}, { timestamps: true })
+      {
+        userName: {
+          type: String,
+        },
+        userPicture: {
+          type: String,
+        },
+        comment: {
+          type: String,
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 const Blogs = models.blogs || model("blogs", blogsSchema);
 
 export default Blogs;

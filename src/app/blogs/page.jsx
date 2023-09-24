@@ -11,6 +11,7 @@ import {
 	AiOutlineDislike,
 	AiFillLike,
 	AiFillDislike,
+	AiOutlineSend
 } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { toast } from "react-toastify";
@@ -42,11 +43,11 @@ const Blogs = () => {
 				content: content,
 				createdAt: currentDateBD.toISOString(),
 				updatedAt: currentDateBD.toISOString(),
-				like: 0,
-				dislike: 0,
+				like: [],
+				dislike: [],
 				comment: [],
 			};
-			console.log(newBlog)
+			console.log(newBlog);
 
 			try {
 				const result = await fetch("http://localhost:3000/api/blogs", {
@@ -100,58 +101,89 @@ const Blogs = () => {
 		}
 	};
 
-	//   Blog Get
+	// Blog Get
 	useEffect(() => {
 		fetch("http://localhost:3000/api/blogs")
 			.then((res) => res.json())
-			.then((data) => setBlogs(data))
+			.then((data) => {
+				// Add liked and disliked properties to each blog
+				const blogsWithLikesAndDislikes = data.map((blog) => ({
+					...blog,
+					liked: false, // Initialize liked as false
+					disliked: false, // Initialize disliked as false
+				}));
+				setBlogs(blogsWithLikesAndDislikes);
+			})
 			.catch((error) => console.log(error));
 	}, [blogs]);
 
-	const toggleLike = (blogId) => {
-		setBlogs((prevBlogs) =>
-			prevBlogs.map((blog) => {
-				if (blog._id === blogId) {
-					if (!blog.liked) {
-						return {
-							...blog,
-							likes: blog.likes + 1,
-							liked: true,
-						};
-					} else {
-						return {
-							...blog,
-							likes: blog.likes - 1,
-							liked: false,
-						};
-					}
-				}
-				return blog;
-			})
-		);
+	const openCommentModal = () => {
+		const modal = document.getElementById("my_modal_4");
+		if (modal) {
+			modal.showModal();
+		}
 	};
 
-	const toggleDislike = (blogId) => {
-		setBlogs((prevBlogs) =>
-			prevBlogs.map((blog) => {
-				if (blog._id === blogId) {
-					if (!blog.disliked) {
-						return {
-							...blog,
-							dislikes: blog.dislikes + 1,
-							disliked: true,
-						};
-					} else {
-						return {
-							...blog,
-							dislikes: blog.dislikes - 1,
-							disliked: false,
-						};
+	const toggleLike = async (blogID) => {
+		if (session) {
+			const { user } = session;
+			const loggedInUserEmail = user.email;
+			try {
+				const response = await fetch(
+					"http://localhost:3000/api/blogLike/" + blogID,
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ loggedInUserEmail }),
 					}
+				);
+
+				if (response.status === 200) {
+					// Liked the blog successfully, update the UI to show it's liked
+					const updatedBlogs = blogs.map((blog) =>
+						blog._id === blogID
+							? { ...blog, liked: !blog.liked, disliked: false }
+							: blog
+					);
+					setBlogs(updatedBlogs);
 				}
-				return blog;
-			})
-		);
+			} catch (error) {
+				console.error("Error liking the blog", error);
+			}
+		}
+	};
+
+	const toggleDislike = async (blogID) => {
+		if (session) {
+			const { user } = session;
+			const loggedInUserEmail = user.email;
+			try {
+				const response = await fetch(
+					"http://localhost:3000/api/blogDislike/" + blogID,
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({ loggedInUserEmail }),
+					}
+				);
+
+				if (response.status === 200) {
+					// Disliked the blog successfully, update the UI to show it's disliked
+					const updatedBlogs = blogs.map((blog) =>
+						blog._id === blogID
+							? { ...blog, disliked: !blog.disliked, liked: false }
+							: blog
+					);
+					setBlogs(updatedBlogs);
+				}
+			} catch (error) {
+				console.error("Error disliking the blog", error);
+			}
+		}
 	};
 
 	return (
@@ -239,7 +271,7 @@ const Blogs = () => {
 								<button className="text-[#0083db]">see more</button>
 							</Link>
 						</div>
-						<div className="absolute left-0 bottom-0 w-full">
+						<div className="absolute left-0 bottom-0 w-full mt-1">
 							<div className="flex px-5 mb-5 justify-between">
 								<div className="flex items-center gap-2">
 									<button onClick={() => toggleLike(blog._id)}>
@@ -249,7 +281,7 @@ const Blogs = () => {
 											<AiOutlineLike className="text-2xl text-[#0083db]" />
 										)}
 									</button>
-									<p>{blog.likes}</p>
+									<p>{blog.like.length}</p>
 								</div>
 								<div className="flex items-center gap-2">
 									<button onClick={() => toggleDislike(blog._id)}>
@@ -259,42 +291,54 @@ const Blogs = () => {
 											<AiOutlineDislike className="text-2xl text-[#0083db]" />
 										)}
 									</button>
-									<p>{blog.dislikes}</p>
+									<p>{blog.dislike.length}</p>
 								</div>
 								<div className="flex items-center gap-2">
 									<div className="flex items-center gap-2">
-										<button onClick={() => window.my_modal_4.showModal()}>
+										<button onClick={openCommentModal}>
 											{<BiCommentDetail className="text-2xl text-[#0083db]" />}
 										</button>
 										<dialog id="my_modal_4" className="modal">
-											<form
-												method="dialog"
-												className="modal-box w-11/12 max-w-5xl"
-											>
-												<textarea
-													className="w-full rounded-lg"
-													name=""
-													id=""
-													cols="30"
-													rows="10"
-												></textarea>
-												<div className="modal-action">
-													<button
-														className="btn bg-[#0083db] text-white"
-														type="submit"
-													>
-														Post
-													</button>
-													<button
-														className="btn bg-[#d83e26] text-white"
-														onClick={() => window.my_modal_4.close()}
-													>
-														Cancel
-													</button>
+											<div className="modal-box w-11/12 max-w-5xl space-y-3">
+												<div className="flex gap-3">
+													<div className="">
+														<Image
+															src="https://i.ibb.co/Pgrgt4S/clf47wwin001nmh08aqvomr5k-1.jpg"
+															alt=""
+															width={50}
+															height={50}
+														/>
+													</div>
+													<input
+														type="text"
+														placeholder="Comment here"
+														className="w-full px-2"
+													/>
+													<AiOutlineSend className="text-[#0083db] cursor-pointer" size="2.5em" />
 												</div>
-											</form>
+												<div className="flex gap-3 mt-5">
+													<div>
+														<Image
+															src="https://i.ibb.co/Pgrgt4S/clf47wwin001nmh08aqvomr5k-1.jpg"
+															alt=""
+															width={50}
+															height={50}
+														/>
+													</div>
+													<div className="border w-full">
+														<p>This is my comment</p>
+													</div>
+												</div>
+												<div className="modal-action">
+													<form method="dialog">
+														<button className="btn mt-10 btn-error text-white">
+															Close
+														</button>
+													</form>
+												</div>
+											</div>
 										</dialog>
-										<p>0</p>
+										<p>{blog.comment.length}</p>
 									</div>
 								</div>
 							</div>
