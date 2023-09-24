@@ -55,7 +55,7 @@ export default function VideoCall() {
                         container: containerRef.current,
                         sharedLinks: [
                             {
-                                name: 'Personal link',
+                                name: 'Meeting link',
                                 url:
                                     window.location.protocol +
                                     '//' +

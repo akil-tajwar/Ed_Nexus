@@ -989,8 +989,6 @@ const CourseDashboard = ({ params }) => {
               <Link href="/video" target="_blank">
                 <BiLogoZoom size="2.5em" color="white" />
               </Link>
-<<<<<<< HEAD
-=======
             </div>
             <div>
               <div>
@@ -999,7 +997,6 @@ const CourseDashboard = ({ params }) => {
                   Password: {presentCourse.password}
                 </h1>
               </div>
->>>>>>> bfd6e5725df0f6a85e9bc98cfb9aa0ad0adcbb37
             </div>
           </div>
           <div className="text-start">
@@ -1008,11 +1005,10 @@ const CourseDashboard = ({ params }) => {
                 <Link
                   href="#"
                   key={index}
-                  className={` text-lg mb-2 flex flex-col items-start ${
-                    tabIndex === index
+                  className={` text-lg mb-2 flex flex-col items-start ${tabIndex === index
                       ? "tab-active text-emerald-400 text-start pl-2 border-l-2 border-[#0083db]"
                       : ""
-                  }`}
+                    }`}
                   onClick={() => handleTabClick(index)}
                 >
                   {category.charAt(0).toUpperCase() + category.slice(1)}
