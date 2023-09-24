@@ -46,7 +46,6 @@ const NavMenu = () => {
     }
   }, [session]);
 
-
   const hideNavbarPatterns = [
     /^\/login$/,
     /^\/signUp$/,
@@ -93,12 +92,18 @@ const NavMenu = () => {
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
 
-    // Mark notifications as read when the dropdown is opened
+    // Delay before marking notifications as read (e.g., 2 seconds)
+    const delayBeforeMarkingRead = 5000;
+
     if (!isDropdownOpen) {
-      markNotificationsAsRead();
+      // Set a timeout to mark notifications as read after the delay
+      setTimeout(() => {
+        markNotificationsAsRead();
+      }, delayBeforeMarkingRead);
     }
   };
   // console.log(isDropdownOpen);
+
   // For Getting Notication Data
   useEffect(() => {
     if (session) {
@@ -147,7 +152,7 @@ const NavMenu = () => {
       <li>
         <Link href="/blogs">Blogs</Link>
       </li>
-      {(session && users.role === "admin") && (
+      {session && users.role === "admin" && (
         <li>
           <Link href="/admin">Dashboard</Link>
         </li>
@@ -157,8 +162,6 @@ const NavMenu = () => {
           <Link href="/chat">Chat</Link>
         </li>
       )}
-
-
     </ul>
   );
   return (
@@ -188,7 +191,9 @@ const NavMenu = () => {
                 className="dropdown-content menu mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
                 {menu}
-                <div className="gap-10 pl-2"><Themes /></div>
+                <div className="gap-10 pl-2">
+                  <Themes />
+                </div>
               </ul>
             </div>
             <a className="btn btn-ghost normal-case text-xl md:text-4xl text-[#0083db]">
@@ -197,7 +202,9 @@ const NavMenu = () => {
           </div>
           <div className="navbar-center hidden lg:flex">{menu}</div>
           <div className="md:navbar-end gap-1">
-            <div className="hidden md:inline"><Themes /></div>
+            <div className="hidden md:inline">
+              <Themes />
+            </div>
             <div className="dropdown dropdown-bottom dropdown-end">
               <div>
                 <button
