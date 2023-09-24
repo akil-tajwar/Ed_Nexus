@@ -22,6 +22,7 @@ const BlogDetails = ({ params }) => {
   const timeOffset = 6 * 60 * 60 * 1000;
   const currentDateBD = new Date(currentDateLocal.getTime() + timeOffset);
 
+
   const formatTime = (isoDate) => {
     const date = new Date(isoDate);
     const options = {

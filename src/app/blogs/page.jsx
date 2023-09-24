@@ -15,6 +15,7 @@ import {
 } from "react-icons/ai";
 import { BiCommentDetail } from "react-icons/bi";
 import { toast } from "react-toastify";
+import { sendNotification } from "../Notification/notification";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -28,6 +29,25 @@ const Blogs = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    async function fetchUsers() {
+      try {
+        const response = await fetch("http://localhost:3000/api/user");
+        if (response.ok) {
+          const data = await response.json();
+          setUsers(data);
+        } else {
+          throw new Error("Error fetching products");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchUsers();
+  }, [users]);
 
   const currentDateLocal = new Date();
   const timeOffset = 6 * 60 * 60 * 1000;
@@ -76,6 +96,15 @@ const Blogs = () => {
           const responseData = await result.json();
           setBlogs((prevBlogs) => [...prevBlogs, responseData]);
           console.log("Blog is added:", responseData);
+          // Send Notification
+          users.map((member) => {
+            sendNotification(
+              member.email,
+              member.image,
+              `${loggedInUserName} posted a new Blog: ${title}`,
+              currentDateBD.toISOString()
+            );
+          });
           toast.success("Blog is Added!", {
             position: "top-right",
             autoClose: 5000,
